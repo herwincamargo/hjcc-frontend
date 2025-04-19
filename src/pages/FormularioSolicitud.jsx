@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 
 const FormularioSolicitud = () => {
+  // Definición de estados para cada campo del formulario y para el error
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [urgencia, setUrgencia] = useState("");
   const [ciudad, setCiudad] = useState("");
   const [pais, setPais] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null); // Estado para manejar los errores
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Evitar recarga de página al enviar el formulario
 
     // Verificar que todos los campos estén completos
     if (!titulo || !descripcion || !urgencia || !ciudad || !pais) {
-      setError("Todos los campos son obligatorios");
+      setError("Todos los campos son obligatorios"); // Establecer mensaje de error si falta algún campo
       return;
     }
+
+    // Limpiar el error en caso de que los campos sean válidos
+    setError(null);
 
     // Enviar los datos al backend con fetch
     fetch("https://hjcc-backend.onrender.com/api/solicitudes", {
@@ -31,22 +35,33 @@ const FormularioSolicitud = () => {
         pais,
       }),
     })
-      .then((response) => response.json())
+      .then((response) => response.json()) // Procesar la respuesta como JSON
       .then((data) => {
-        // Aquí puedes manejar lo que pasa después de publicar la solicitud
-        // Por ejemplo, redirigir a otra página o mostrar un mensaje de éxito
-        console.log("Solicitud creada:", data);
+        console.log("Solicitud creada:", data); // Ver los datos devueltos por el backend
+
+        // Aquí podrías redirigir a otra página o limpiar el formulario
+        alert("¡Solicitud enviada con éxito!"); // Puedes usar un mensaje de éxito
+        // Limpiar los campos después de enviar la solicitud
+        setTitulo("");
+        setDescripcion("");
+        setUrgencia("");
+        setCiudad("");
+        setPais("");
       })
       .catch((error) => {
-        setError("Error al crear la solicitud");
-        console.error(error);
+        setError("Error al crear la solicitud"); // Mostrar error si ocurre un problema con la API
+        console.error("Error:", error);
       });
   };
 
   return (
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitar Servicio</h1>
-      {error && <p className="text-center text-danger">{error}</p>} {/* Mostrar error si existe */}
+      
+      {/* Mostrar el mensaje de error si existe */}
+      {error && <p className="text-center text-danger">{error}</p>} 
+
+      {/* Formulario para enviar una solicitud */}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="titulo">Título</label>

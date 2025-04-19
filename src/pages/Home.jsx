@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Importar Link de React Router para redirigir
+import { Link } from "react-router-dom";  // Importar Link de React Router para redirigir
 import SolicitudesCard from "./SolicitudesCard";  // Asegúrate de tener el componente SolicitudesCard
 
 const Home = () => {
@@ -33,14 +33,6 @@ const Home = () => {
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
 
-      {/* Texto debajo del título */}
-      <p className="text-center mb-4">
-        ¿Necesitas servicio especializado?{" "}
-        <Link to="/solicitar-servicio" className="btn btn-link p-0">
-          ¡Solicítalo ahora!
-        </Link>
-      </p>
-
       {/* Mostrar un mensaje de carga si las solicitudes están siendo obtenidas */}
       {cargando ? (
         <p className="text-center">Cargando solicitudes...</p>
@@ -67,11 +59,9 @@ const Home = () => {
                 </p>
 
                 {/* Enlace para ver los detalles de la solicitud */}
-                <div className="d-flex justify-content-between">
-                  <Link to={`/solicitudes/${solicitud.urlSlug}`} className="btn btn-link">
-                    Ver detalles
-                  </Link>
-                </div>
+                <Link to={`/solicitudes/${solicitud.urlSlug}`} className="btn btn-link">
+                  Ver detalles
+                </Link>
               </div>
             </div>
           ))}
@@ -79,7 +69,9 @@ const Home = () => {
       )}
 
       {/* Texto conciso y enlace al formulario */}
-      <div className="text-center mt-3">
+      <div className="cta-container text-center mt-5 py-4" style={{ backgroundColor: "#f8f9fa" }}>
+        <h3>¿Necesitas servicio especializado?</h3>
+        <p>¡Solicítalo ahora y recibe ayuda rápida!</p>
         <Link to="/solicitar-servicio" className="btn btn-primary">Solicitar Servicio</Link>
       </div>
     </div>

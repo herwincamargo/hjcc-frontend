@@ -1,20 +1,23 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";  // Importar useHistory para la redirección
 
 const FormularioSolicitud = () => {
-  // Definición de estados para cada campo del formulario y para el error
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [urgencia, setUrgencia] = useState("");
   const [ciudad, setCiudad] = useState("");
   const [pais, setPais] = useState("");
-  const [error, setError] = useState(null); // Estado para manejar los errores
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const history = useHistory();  // Usar useHistory para redirigir
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Evitar recarga de página al enviar el formulario
+    e.preventDefault();
 
     // Verificar que todos los campos estén completos
     if (!titulo || !descripcion || !urgencia || !ciudad || !pais) {
-      setError("Todos los campos son obligatorios"); // Establecer mensaje de error si falta algún campo
+      setError("Todos los campos son obligatorios");
+      setSuccessMessage(null);
       return;
     }
 
@@ -35,21 +38,24 @@ const FormularioSolicitud = () => {
         pais,
       }),
     })
-      .then((response) => response.json()) // Procesar la respuesta como JSON
+      .then((response) => response.json())
       .then((data) => {
-        console.log("Solicitud creada:", data); // Ver los datos devueltos por el backend
+        // Mostrar mensaje de éxito
+        setSuccessMessage("¡Solicitud enviada con éxito!");
 
-        // Aquí podrías redirigir a otra página o limpiar el formulario
-        alert("¡Solicitud enviada con éxito!"); // Puedes usar un mensaje de éxito
-        // Limpiar los campos después de enviar la solicitud
+        // Limpiar los campos del formulario después de enviar la solicitud
         setTitulo("");
         setDescripcion("");
         setUrgencia("");
         setCiudad("");
         setPais("");
+
+        // Redirigir al usuario a la URL de su solicitud utilizando el slug generado
+        history.push(`/solicitudes/${data.urlSlug}`);
       })
       .catch((error) => {
-        setError("Error al crear la solicitud"); // Mostrar error si ocurre un problema con la API
+        setError("Error al crear la solicitud");
+        setSuccessMessage(null);
         console.error("Error:", error);
       });
   };
@@ -57,9 +63,12 @@ const FormularioSolicitud = () => {
   return (
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitar Servicio</h1>
-      
-      {/* Mostrar el mensaje de error si existe */}
-      {error && <p className="text-center text-danger">{error}</p>} 
+
+      {/* Mostrar mensaje de error si existe */}
+      {error && <p className="text-center text-danger">{error}</p>}
+
+      {/* Mostrar mensaje de éxito si la solicitud se envió correctamente */}
+      {successMessage && <p className="text-center text-success">{successMessage}</p>}
 
       {/* Formulario para enviar una solicitud */}
       <form onSubmit={handleSubmit}>

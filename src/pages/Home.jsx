@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Importar Link de React Router para redirigir
 import SolicitudesCard from "./SolicitudesCard";  // Asegúrate de tener el componente SolicitudesCard
 
 const Home = () => {
@@ -17,6 +18,8 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
+        // Ordenar solicitudes por fecha (más recientes primero)
+        data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
         setSolicitudesRecientes(data); // Asignar los datos de las solicitudes
         setCargando(false); // Termina la carga
       })
@@ -41,7 +44,26 @@ const Home = () => {
         <div className="list-group">
           {/* Mapear las solicitudes y pasarlas al componente SolicitudesCard */}
           {solicitudesRecientes.map((solicitud) => (
-            <SolicitudesCard key={solicitud.id} solicitud={solicitud} />
+            <div key={solicitud.id} className="card mb-3">
+              <div className="card-body">
+                <h5 className="card-title">{solicitud.titulo}</h5>
+                <p className="card-text">{solicitud.descripcion}</p>
+                <p className="card-text">
+                  <small className="text-muted">Urgencia: {solicitud.urgencia}</small>
+                </p>
+                <p className="card-text">
+                  <small className="text-muted">Ciudad: {solicitud.ciudad}</small>
+                </p>
+                <p className="card-text">
+                  <small className="text-muted">País: {solicitud.pais}</small>
+                </p>
+
+                {/* Enlace para ver los detalles de la solicitud */}
+                <Link to={`/solicitudes/${solicitud.urlSlug}`} className="btn btn-link">
+                  Ver detalles
+                </Link>
+              </div>
+            </div>
           ))}
         </div>
       )}

@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark"> {/* Se agregó bg-dark para fondo negro */}
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">HJCC</Link>
+        <Link className="navbar-brand" to="/">HJCC - Smart Services</Link>
         <button
           className="navbar-toggler"
           type="button"

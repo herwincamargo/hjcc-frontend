@@ -73,11 +73,9 @@ const Home = () => {
         </div>
       )}
 
-      {/* CTA - "Solicitar Servicio" con enlace claro y botón */}
-      <div className="cta-container text-center mt-5 py-4" style={{ backgroundColor: "#f8f9fa" }}>
-        <Link to="/solicitar-servicio" className="btn btn-primary">
-          Solicitar Servicio
-        </Link>
+      {/* Link pequeño para "Solicitar Servicio" debajo del título */}
+      <div className="text-center mt-3">
+        <Link to="/solicitar-servicio" className="btn btn-primary">Solicitar Servicio</Link>
       </div>
     </div>
   );

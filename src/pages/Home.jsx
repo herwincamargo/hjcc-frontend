@@ -68,11 +68,11 @@ const Home = () => {
         </div>
       )}
 
-      {/* CTA - "Solicitar Servicio" con enlace claro y botón atractivo */}
+      {/* Texto conciso y enlace al formulario */}
       <div className="cta-container text-center mt-5 py-4" style={{ backgroundColor: "#f8f9fa" }}>
-        <h3>¿Necesitas un servicio especializado?</h3>
-        <p>¡Solicítalo ahora! Haz clic aquí para enviar tu solicitud.</p>
-        <Link to="/solicitar-servicio" className="btn btn-primary btn-lg">Solicitar Servicio</Link>
+        <h3>¿Necesitas servicio especializado?</h3>
+        <p>¡Solicítalo ahora y recibe ayuda rápida!</p>
+        <Link to="/solicitar-servicio" className="btn btn-primary">Solicitar Servicio</Link>
       </div>
 
       {/* CTA - "Trabaja con Nosotros" */}

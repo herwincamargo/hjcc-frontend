@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";  // Importar Link de React Router para redirigir
-import SolicitudesCard from "./SolicitudesCard";  // Asegúrate de tener el componente SolicitudesCard
+import { Link } from "react-router-dom"; // Importar Link de React Router para redirigir
+import SolicitudesCard from "./SolicitudesCard"; // Asegúrate de tener el componente SolicitudesCard
 
 const Home = () => {
   // Estado para las solicitudes, carga y error
@@ -37,7 +37,7 @@ const Home = () => {
       {cargando ? (
         <p className="text-center">Cargando solicitudes...</p>
       ) : error ? (
-        <p className="text-center text-danger">Error: {error}</p> // Mostrar error si falla la carga
+        <p className="text-center text-danger">Error: {error}</p>
       ) : solicitudesRecientes.length === 0 ? (
         <p className="text-center">No hay solicitudes recientes disponibles.</p>
       ) : (

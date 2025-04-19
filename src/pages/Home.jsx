@@ -33,9 +33,12 @@ const Home = () => {
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
 
-      {/* Texto debajo del título */}
+      {/* Texto debajo del título con enlace para "Solicitar Servicio" */}
       <p className="text-center mb-4">
-        ¿Necesitas servicio especializado? ¡Solicítalo ahora!
+        ¿Necesitas servicio especializado?{" "}
+        <Link to="/solicitar-servicio" className="btn btn-link p-0">
+          ¡Solicítalo ahora!
+        </Link>
       </p>
 
       {/* Mostrar un mensaje de carga si las solicitudes están siendo obtenidas */}
@@ -73,9 +76,11 @@ const Home = () => {
         </div>
       )}
 
-      {/* Link pequeño para "Solicitar Servicio" debajo del título */}
-      <div className="text-center mt-3">
-        <Link to="/solicitar-servicio" className="btn btn-primary">Solicitar Servicio</Link>
+      {/* CTA - "Trabaja con Nosotros" */}
+      <div className="cta-container text-center mt-5 py-4" style={{ backgroundColor: "#f8f9fa" }}>
+        <h3>¿Eres un especialista en algún sector?</h3>
+        <p>¡Alguien puede necesitar de tus servicios! Regístrate ahora y empieza a ayudar a quienes te necesitan.</p>
+        <a href="/registro-profesional" className="cta-button">Trabaja con Nosotros</a>
       </div>
     </div>
   );

@@ -1,3 +1,259 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Establecer el color general de fondo y texto */
+body {
+  background-color: #f8f9fa; /* Fondo blanco/ligeramente gris */
+  color: #000000; /* Texto negro */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Hace que el body ocupe toda la altura de la ventana */
+  margin: 0;
+}
+
+/* Asegurarse de que el contenido principal ocupe el espacio restante */
+main {
+  flex: 1; /* Esto hace que el contenido ocupe el espacio disponible */
+  padding-bottom: 50px; /* Añadir un espacio en la parte inferior para evitar que el footer se superponga */
+}
+
+/* Títulos en negro */
+h1, h2, h3, h4, h5, h6 {
+  color: #000000; /* Negro */
+}
+
+/* Eliminar borde azul en campos de formulario al hacer foco */
+input:focus, textarea:focus, select:focus {
+  border-color: #808080; /* Gris oscuro */
+  box-shadow: none; /* Eliminar la sombra azul */
+}
+
+/* Borde gris oscuro para los campos de formulario */
+input, textarea, select {
+  border-color: #808080; /* Gris oscuro */
+}
+
+/* Estilo para el formulario de solicitud */
+form {
+  margin-top: 20px;
+}
+
+/* Botón personalizado gris con texto blanco */
+.btn-custom {
+  background-color: #808080; /* Gris */
+  color: white;
+  border: none;
+}
+
+.btn-custom:hover {
+  background-color: #595959; /* Gris oscuro */
+}
+
+.btn-custom:focus {
+  box-shadow: none;
+  border-color: #808080; /* Gris oscuro al hacer foco */
+}
+
+/* Ajustar el color del borde de las tarjetas */
+.card {
+  border-color: #dcdcdc; /* Gris claro */
+}
+
+/* Personalización de los botones de Bootstrap (si es necesario) */
+.btn-primary {
+  background-color: #000000; /* Negro */
+  border-color: #000000;
+}
+
+.btn-primary:hover {
+  background-color: #444444; /* Gris oscuro */
+  border-color: #444444;
+}
+
+/* Personalización de los botones secundarios de Bootstrap */
+.btn-secondary {
+  background-color: #808080; /* Gris */
+  border-color: #808080;
+}
+
+.btn-secondary:hover {
+  background-color: #595959; /* Gris más oscuro */
+  border-color: #595959;
+}
+
+/* Eliminar borde azul de los botones de Bootstrap al hacer foco */
+.btn:focus {
+  box-shadow: none;
+  border-color: #808080; /* Gris oscuro */
+}
+
+/* Personalización de enlaces */
+a {
+  color: #000000; /* Negro */
+}
+
+a:hover {
+  color: #808080; /* Gris */
+}
+
+/* Estilos de la cabecera (Header) */
+header {
+  background-color: #000000; /* Negro */
+  color: white; /* Texto blanco */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Sombra sutil */
+}
+
+header a {
+  color: white; /* Enlaces en blanco */
+}
+
+header a:hover {
+  color: #808080; /* Gris */
+}
+
+/* Estilo para el pie de página (Footer) */
+footer {
+  background-color: #f8f9fa; /* Fondo gris claro */
+  color: #000000; /* Texto negro */
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+  position: relative; /* Asegura que el footer no se solape */
+  margin-top: 20px;
+}
+
+/* Personalización de enlaces en el footer */
+footer a {
+  color: #808080; /* Gris para enlaces */
+}
+
+footer a:hover {
+  color: #000000; /* Negro al hacer hover */
+}
+
+/* Ajustar la apariencia de los campos en el formulario */
+input, textarea, select {
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px;
+  font-size: 16px;
+  color: #000000; /* Texto negro */
+}
+
+/* Ajustes para la disposición de los campos del formulario */
+form .row {
+  margin-bottom: 15px;
+}
+
+.form-control, .form-select {
+  font-size: 1rem;
+}
+
+/* Personalización de la barra de navegación */
+.navbar {
+  background-color: #000000; /* Fondo negro */
+  color: white; /* Texto blanco */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.navbar a {
+  color: white; /* Enlaces en blanco */
+}
+
+.navbar a:hover {
+  color: #808080; /* Gris claro al hacer hover */
+}
+
+/* Personalizar el fondo y los bordes de los cards */
+.card-body {
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 20px;
+}
+
+.card-header {
+  background-color: #000000; /* Negro */
+  color: white; /* Texto blanco */
+  border-bottom: 1px solid #dcdcdc; /* Línea gris */
+}
+
+/* Personalización de los iconos */
+i, .icon {
+  color: #808080; /* Gris para los iconos */
+}
+
+i:hover, .icon:hover {
+  color: #000000; /* Negro al pasar el ratón sobre los iconos */
+}
+
+/* Estilo de los botones al pasar el ratón */
+button:focus {
+  outline: none; /* Eliminar borde por defecto */
+  box-shadow: none;
+}
+
+/* Transiciones y efectos para los botones */
+.btn-custom, .btn-primary, .btn-secondary {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-custom:hover, .btn-primary:hover, .btn-secondary:hover {
+  transform: scale(1.05); /* Aumenta el tamaño al hacer hover */
+}
+
+/* Estilo del header y footer */
+header {
+  background-color: #000000;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Sombra sutil */
+}
+
+footer {
+  background-color: #f8f9fa;
+  color: #000000;
+  padding: 10px 0;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Estilo para las tarjetas */
+.card:hover {
+  transform: scale(1.02); /* Un leve aumento en el tamaño de la tarjeta */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Ajustar el contenido principal para que siempre esté al menos en el 100% de la altura de la página */
+body, html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+main {
+  flex: 1; /* Esto hace que el contenido ocupe el espacio disponible */
+}
+
+/* Estilo para el CTA */
+.cta-button {
+  background-color: #ff5722; /* Color llamativo para el CTA */
+  color: white; /* Texto blanco */
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 30px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #e64a19; /* Fondo más oscuro al hacer hover */
+}
+
+.cta-container {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #f8f9fa; /* Fondo gris claro */
+}

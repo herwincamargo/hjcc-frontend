@@ -40,3 +40,22 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Asegurarse de que los títulos no tengan color azul */
+h1, h2, h3, h4, h5, h6 {
+  color: #000000 !important; /* Fuerza el color negro */
+}
+
+/* Título principal "Bienvenido a HJCC" */
+h1.display-4 {
+  color: #000000 !important; /* Título principal en negro */
+}
+
+/* Si tienes enlaces que se vuelven azules por Bootstrap */
+a {
+  color: #000000 !important; /* Enlaces en negro */
+}
+
+a:hover {
+  color: #808080 !important; /* Enlaces en gris al pasar el ratón */
+}

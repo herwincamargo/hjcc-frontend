@@ -1,25 +1,57 @@
-import FormularioSolicitud from "../components/FormularioSolicitud.jsx";
-import Solicitudes from "../components/Solicitudes.jsx";
+import React, { useState, useEffect } from "react";
+import SolicitudesCard from "./SolicitudesCard";  // Asegúrate de tener el componente SolicitudesCard
 
 const Home = () => {
+  // Estado para las solicitudes, carga y error
+  const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);
+  const [cargando, setCargando] = useState(true); // Para controlar el estado de carga
+  const [error, setError] = useState(null); // Para manejar posibles errores
+
+  useEffect(() => {
+    // Fetch de las solicitudes recientes desde la API
+    fetch("https://hjcc-backend.onrender.com/api/solicitudes")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al cargar las solicitudes");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setSolicitudesRecientes(data); // Asignar los datos de las solicitudes
+        setCargando(false); // Termina la carga
+      })
+      .catch((error) => {
+        setError(error.message); // Manejar el error
+        setCargando(false); // Termina la carga
+      });
+  }, []); // Solo se ejecuta una vez cuando se monta el componente
+
   return (
-    <div className="bg-gray-100 min-h-screen">
-      {/* CABECERA / HERO */}
-      <section className="bg-white shadow-md py-10">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold text-blue-700">HJCC - Servicio Inteligente</h1>
-          <p className="text-gray-600 mt-3 text-lg">Conecta con expertos de confianza en toda Colombia.</p>
+    <div className="container py-5">
+      <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
+
+      {/* Mostrar un mensaje de carga si las solicitudes están siendo obtenidas */}
+      {cargando ? (
+        <p className="text-center">Cargando solicitudes...</p>
+      ) : error ? (
+        <p className="text-center text-danger">Error: {error}</p> // Mostrar error si falla la carga
+      ) : solicitudesRecientes.length === 0 ? (
+        <p className="text-center">No hay solicitudes recientes disponibles.</p>
+      ) : (
+        <div className="list-group">
+          {/* Mapear las solicitudes y pasarlas al componente SolicitudesCard */}
+          {solicitudesRecientes.map((solicitud) => (
+            <SolicitudesCard key={solicitud.id} solicitud={solicitud} />
+          ))}
         </div>
-      </section>
+      )}
 
-      {/* CONTENIDO PRINCIPAL */}
-      <main className="max-w-6xl mx-auto px-4 py-10 space-y-12">
-        {/* FORMULARIO */}
-        <FormularioSolicitud />
-
-        {/* LISTADO DE SOLICITUDES */}
-        <Solicitudes />
-      </main>
+      {/* CTA - "Trabaja con Nosotros" */}
+      <div className="cta-container text-center mt-5 py-4" style={{ backgroundColor: "#f8f9fa" }}>
+        <h3>¿Eres un especialista en algún sector?</h3>
+        <p>¡Alguien puede necesitar de tus servicios! Regístrate ahora y empieza a ayudar a quienes te necesitan.</p>
+        <a href="/registro-profesional" className="cta-button">Trabaja con Nosotros</a>
+      </div>
     </div>
   );
 };

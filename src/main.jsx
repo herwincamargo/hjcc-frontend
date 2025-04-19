@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";  // Importa el componente principal
-import "./index.css";  // Asegúrate de que esta línea esté correcta para los estilos globales
-import 'bootstrap/dist/css/bootstrap.min.css';  // Importa Bootstrap
+import App from "./App";  // Asegúrate de que el componente App está correctamente importado
+import './index.css'; // Si tienes un archivo de estilos globales, inclúyelo
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <React.StrictMode>
-    <App />
+    <App />  {/* Este es tu componente principal */}
   </React.StrictMode>
 );

@@ -1,41 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Importar Routes y Route
+import Header from "./layout/Header";  // Importar Header directamente
+import Footer from "./layout/Footer";  // Importar Footer directamente
+import Home from "./pages/Home";  // Página de solicitudes recientes
+import FormularioSolicitud from "./pages/FormularioSolicitud";  // Página de solicitud de servicio
+import Solicitudes from "./pages/Solicitudes";  // Página de mostrar todas las solicitudes
+import SolicitudDetalles from "./pages/SolicitudDetalles"; // Página para ver detalles de la solicitud
 
-const Header = () => {
+const App = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">HJCC</Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/solicitar-servicio">Solicitar Servicio</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/solicitudes">Solicitudes</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/registro-profesional">Trabaja con Nosotros</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <Router>
+      <Header /> {/* Mostrar Header globalmente */}
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/solicitar-servicio" element={<FormularioSolicitud />} />
+          <Route path="/solicitudes" element={<Solicitudes />} />
+          <Route path="/solicitudes/:slug" element={<SolicitudDetalles />} /> {/* Detalles de la solicitud */}
+        </Routes>
+      </main>
+      <Footer /> {/* Mostrar Footer globalmente */}
+    </Router>
   );
 };
 
-export default Header;
+export default App;

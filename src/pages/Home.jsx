@@ -1,48 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Importar Link de React Router para redirigir
-import SolicitudesCard from "./SolicitudesCard";  // Asegúrate de tener el componente SolicitudesCard
 
 const Home = () => {
-  // Estado para las solicitudes, carga y error
   const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);
-  const [cargando, setCargando] = useState(true); // Para controlar el estado de carga
-  const [error, setError] = useState(null); // Para manejar posibles errores
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch de las solicitudes recientes desde la API
     fetch("https://hjcc-backend.onrender.com/api/solicitudes")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al cargar las solicitudes");
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        // Ordenar solicitudes por fecha (más recientes primero)
         data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-        setSolicitudesRecientes(data); // Asignar los datos de las solicitudes
-        setCargando(false); // Termina la carga
+        setSolicitudesRecientes(data);
+        setCargando(false);
       })
       .catch((error) => {
-        setError(error.message); // Manejar el error
-        setCargando(false); // Termina la carga
+        setError(error.message);
+        setCargando(false);
       });
-  }, []); // Solo se ejecuta una vez cuando se monta el componente
+  }, []);
 
   return (
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
 
-      {/* Mostrar un mensaje de carga si las solicitudes están siendo obtenidas */}
+      {error && <p className="text-center text-danger">{error}</p>}
+
       {cargando ? (
         <p className="text-center">Cargando solicitudes...</p>
-      ) : error ? (
-        <p className="text-center text-danger">Error: {error}</p> // Mostrar error si falla la carga
       ) : solicitudesRecientes.length === 0 ? (
         <p className="text-center">No hay solicitudes recientes disponibles.</p>
       ) : (
         <div className="list-group">
-          {/* Mapear las solicitudes y pasarlas al componente SolicitudesCard */}
           {solicitudesRecientes.map((solicitud) => (
             <div key={solicitud.id} className="card mb-3">
               <div className="card-body">

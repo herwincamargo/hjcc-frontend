@@ -1,26 +1,40 @@
 import React from "react";
-import { Link } from "react-router-dom";  // Usamos Link para navegar entre páginas
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="container-fluid">
         <Link className="navbar-brand" to="/">HJCC</Link>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ml-auto">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/">Solicitar Servicio</Link>
+              <Link className="nav-link active" aria-current="page" to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/solicitar-servicio">Lista de Técnicos</Link>
+              <Link className="nav-link" to="/solicitar-servicio">Solicitar Servicio</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/login">Iniciar sesión</Link>
+              <Link className="nav-link" to="/solicitudes">Solicitudes</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/registro-profesional">Trabaja con Nosotros</Link>
             </li>
           </ul>
         </div>
       </div>
-    </header>
+    </nav>
   );
 };
 

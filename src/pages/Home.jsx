@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Importar Link de React Router para redirigir
-import SolicitudesCard from "./SolicitudesCard"; // Asegúrate de tener el componente SolicitudesCard
 
 const Home = () => {
-  // Estado para las solicitudes, carga y error
   const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);
-  const [cargando, setCargando] = useState(true); // Para controlar el estado de carga
-  const [error, setError] = useState(null); // Para manejar posibles errores
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Fetch de las solicitudes recientes desde la API
@@ -18,22 +16,19 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
-        // Ordenar solicitudes por fecha (más recientes primero)
-        data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
         setSolicitudesRecientes(data); // Asignar los datos de las solicitudes
-        setCargando(false); // Termina la carga
+        setCargando(false);
       })
       .catch((error) => {
-        setError(error.message); // Manejar el error
-        setCargando(false); // Termina la carga
+        setError(error.message);
+        setCargando(false);
       });
-  }, []); // Solo se ejecuta una vez cuando se monta el componente
+  }, []);
 
   return (
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
 
-      {/* Mostrar un mensaje de carga si las solicitudes están siendo obtenidas */}
       {cargando ? (
         <p className="text-center">Cargando solicitudes...</p>
       ) : error ? (
@@ -42,7 +37,6 @@ const Home = () => {
         <p className="text-center">No hay solicitudes recientes disponibles.</p>
       ) : (
         <div className="list-group">
-          {/* Mapear las solicitudes y pasarlas al componente SolicitudesCard */}
           {solicitudesRecientes.map((solicitud) => (
             <div key={solicitud.id} className="card mb-3">
               <div className="card-body">
@@ -58,7 +52,6 @@ const Home = () => {
                   <small className="text-muted">País: {solicitud.pais}</small>
                 </p>
 
-                {/* Enlace para ver los detalles de la solicitud */}
                 <Link to={`/solicitudes/${solicitud.urlSlug}`} className="btn btn-link">
                   Ver detalles
                 </Link>
@@ -68,7 +61,7 @@ const Home = () => {
         </div>
       )}
 
-      {/* Texto conciso y enlace al formulario */}
+      {/* CTA */}
       <div className="cta-container text-center mt-5 py-4" style={{ backgroundColor: "#f8f9fa" }}>
         <h3>¿Necesitas servicio especializado?</h3>
         <p>¡Solicítalo ahora y recibe ayuda rápida!</p>

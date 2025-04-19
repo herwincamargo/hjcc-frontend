@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark"> 
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark"> {/* Navbar dentro del componente Header */}
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">HJCC - Smart Services</Link>
         <button

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark"> {/* Se agregó bg-dark para fondo negro */}
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark"> {/* Asegúrate que el navbar no está dentro de otro contenedor no deseado */}
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">HJCC - Smart Services</Link>
         <button

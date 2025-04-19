@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";  // Importar Link de React Router para redirigir
+import { Link } from "react-router-dom"; // Importar Link de React Router para redirigir
 import SolicitudesCard from "./SolicitudesCard";  // Asegúrate de tener el componente SolicitudesCard
 
 const Home = () => {
@@ -18,6 +18,8 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
+        // Ordenar solicitudes por fecha (más recientes primero)
+        data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
         setSolicitudesRecientes(data); // Asignar los datos de las solicitudes
         setCargando(false); // Termina la carga
       })

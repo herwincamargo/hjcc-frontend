@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
 import Header from "./layout/Header";  // Importar Header
 import Footer from "./layout/Footer";  // Importar Footer
 import Home from "./pages/Home";  // Página de solicitudes recientes

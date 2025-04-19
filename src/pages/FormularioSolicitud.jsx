@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";  // Importar useHistory para la redirección
+import { useNavigate } from "react-router-dom";  // Importa useNavigate en lugar de useHistory
 
 const FormularioSolicitud = () => {
   const [titulo, setTitulo] = useState("");
@@ -8,23 +8,17 @@ const FormularioSolicitud = () => {
   const [ciudad, setCiudad] = useState("");
   const [pais, setPais] = useState("");
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const history = useHistory();  // Usar useHistory para redirigir
+
+  const navigate = useNavigate();  // Inicializa el hook useNavigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Verificar que todos los campos estén completos
     if (!titulo || !descripcion || !urgencia || !ciudad || !pais) {
       setError("Todos los campos son obligatorios");
-      setSuccessMessage(null);
       return;
     }
 
-    // Limpiar el error en caso de que los campos sean válidos
-    setError(null);
-
-    // Enviar los datos al backend con fetch
     fetch("https://hjcc-backend.onrender.com/api/solicitudes", {
       method: "POST",
       headers: {
@@ -40,37 +34,20 @@ const FormularioSolicitud = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Mostrar mensaje de éxito
-        setSuccessMessage("¡Solicitud enviada con éxito!");
-
-        // Limpiar los campos del formulario después de enviar la solicitud
-        setTitulo("");
-        setDescripcion("");
-        setUrgencia("");
-        setCiudad("");
-        setPais("");
-
-        // Redirigir al usuario a la URL de su solicitud utilizando el slug generado
-        history.push(`/solicitudes/${data.urlSlug}`);
+        console.log("Solicitud creada:", data);
+        // Después de crear la solicitud, redirigir a la página de detalles de la solicitud
+        navigate(`/solicitudes/${data.urlSlug}`);  // Redirigir con el URL del slug
       })
       .catch((error) => {
         setError("Error al crear la solicitud");
-        setSuccessMessage(null);
-        console.error("Error:", error);
+        console.error(error);
       });
   };
 
   return (
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitar Servicio</h1>
-
-      {/* Mostrar mensaje de error si existe */}
       {error && <p className="text-center text-danger">{error}</p>}
-
-      {/* Mostrar mensaje de éxito si la solicitud se envió correctamente */}
-      {successMessage && <p className="text-center text-success">{successMessage}</p>}
-
-      {/* Formulario para enviar una solicitud */}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="titulo">Título</label>

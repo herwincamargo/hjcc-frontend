@@ -14,90 +14,12 @@ main {
   padding-bottom: 50px; /* Añadir un espacio en la parte inferior para evitar que el footer se superponga */
 }
 
-/* Títulos en negro */
-h1, h2, h3, h4, h5, h6 {
-  color: #000000; /* Negro */
-}
-
-/* Eliminar borde azul en campos de formulario al hacer foco */
-input:focus, textarea:focus, select:focus {
-  border-color: #808080; /* Gris oscuro */
-  box-shadow: none; /* Eliminar la sombra azul */
-}
-
-/* Borde gris oscuro para los campos de formulario */
-input, textarea, select {
-  border-color: #808080; /* Gris oscuro */
-}
-
-/* Estilo para el formulario de solicitud */
-form {
-  margin-top: 20px;
-}
-
-/* Botón personalizado gris con texto blanco */
-.btn-custom {
-  background-color: #808080; /* Gris */
-  color: white;
-  border: none;
-}
-
-.btn-custom:hover {
-  background-color: #595959; /* Gris oscuro */
-}
-
-.btn-custom:focus {
-  box-shadow: none;
-  border-color: #808080; /* Gris oscuro al hacer foco */
-}
-
-/* Ajustar el color del borde de las tarjetas */
-.card {
-  border-color: #dcdcdc; /* Gris claro */
-}
-
-/* Personalización de los botones de Bootstrap (si es necesario) */
-.btn-primary {
-  background-color: #000000; /* Negro */
-  border-color: #000000;
-}
-
-.btn-primary:hover {
-  background-color: #444444; /* Gris oscuro */
-  border-color: #444444;
-}
-
-/* Personalización de los botones secundarios de Bootstrap */
-.btn-secondary {
-  background-color: #808080; /* Gris */
-  border-color: #808080;
-}
-
-.btn-secondary:hover {
-  background-color: #595959; /* Gris más oscuro */
-  border-color: #595959;
-}
-
-/* Eliminar borde azul de los botones de Bootstrap al hacer foco */
-.btn:focus {
-  box-shadow: none;
-  border-color: #808080; /* Gris oscuro */
-}
-
-/* Personalización de enlaces */
-a {
-  color: #000000; /* Negro */
-}
-
-a:hover {
-  color: #808080; /* Gris */
-}
-
-/* Estilos de la cabecera (Header) */
+/* Estilos para el header */
 header {
-  background-color: #000000; /* Negro */
+  background-color: #000000; /* Fondo negro */
   color: white; /* Texto blanco */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Sombra sutil */
+  z-index: 9999; /* Asegurarse de que el header esté por encima de otros elementos */
 }
 
 header a {
@@ -105,7 +27,7 @@ header a {
 }
 
 header a:hover {
-  color: #808080; /* Gris */
+  color: #808080; /* Gris claro al hacer hover */
 }
 
 /* Estilo para el pie de página (Footer) */
@@ -116,7 +38,7 @@ footer {
   text-align: center;
   width: 100%;
   position: relative; /* Asegura que el footer no se solape */
-  margin-top: 20px;
+  margin-top: 0; /* Eliminar cualquier margen extra */
 }
 
 /* Personalización de enlaces en el footer */
@@ -126,6 +48,22 @@ footer a {
 
 footer a:hover {
   color: #000000; /* Negro al hacer hover */
+}
+
+/* Estilos de la cabecera (Navbar) */
+.navbar {
+  background-color: #000000; /* Fondo negro */
+  color: white; /* Texto blanco */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  z-index: 9999;
+}
+
+.navbar a {
+  color: white; /* Enlaces en blanco */
+}
+
+.navbar a:hover {
+  color: #808080; /* Gris claro al hacer hover */
 }
 
 /* Ajustar la apariencia de los campos en el formulario */
@@ -146,94 +84,19 @@ form .row {
   font-size: 1rem;
 }
 
-/* Personalización de la barra de navegación */
-.navbar {
-  background-color: #000000; /* Fondo negro */
-  color: white; /* Texto blanco */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+/* Eliminar borde azul en campos de formulario al hacer foco */
+input:focus, textarea:focus, select:focus {
+  border-color: #808080; /* Gris oscuro */
+  box-shadow: none; /* Eliminar la sombra azul */
 }
 
-.navbar a {
-  color: white; /* Enlaces en blanco */
-}
-
-.navbar a:hover {
-  color: #808080; /* Gris claro al hacer hover */
-}
-
-/* Personalizar el fondo y los bordes de los cards */
-.card-body {
-  background-color: #ffffff; /* Fondo blanco */
-  padding: 20px;
-}
-
-.card-header {
-  background-color: #000000; /* Negro */
-  color: white; /* Texto blanco */
-  border-bottom: 1px solid #dcdcdc; /* Línea gris */
-}
-
-/* Personalización de los iconos */
-i, .icon {
-  color: #808080; /* Gris para los iconos */
-}
-
-i:hover, .icon:hover {
-  color: #000000; /* Negro al pasar el ratón sobre los iconos */
-}
-
-/* Estilo de los botones al pasar el ratón */
-button:focus {
-  outline: none; /* Eliminar borde por defecto */
+/* Eliminar borde azul de los botones de Bootstrap al hacer foco */
+.btn:focus {
   box-shadow: none;
+  border-color: #808080; /* Gris oscuro */
 }
 
-/* Transiciones y efectos para los botones */
-.btn-custom, .btn-primary, .btn-secondary {
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.btn-custom:hover, .btn-primary:hover, .btn-secondary:hover {
-  transform: scale(1.05); /* Aumenta el tamaño al hacer hover */
-}
-
-/* Estilo del header y footer */
-header {
-  background-color: #000000;
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Sombra sutil */
-}
-
-footer {
-  background-color: #f8f9fa;
-  color: #000000;
-  padding: 10px 0;
-  text-align: center;
-  margin-top: 20px;
-}
-
-/* Estilo para las tarjetas */
-.card:hover {
-  transform: scale(1.02); /* Un leve aumento en el tamaño de la tarjeta */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-/* Ajustar el contenido principal para que siempre esté al menos en el 100% de la altura de la página */
-body, html {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-}
-
-main {
-  flex: 1; /* Esto hace que el contenido ocupe el espacio disponible */
-}
-
-/* Estilo para el CTA */
+/* Estilo del CTA */
 .cta-button {
   background-color: #ff5722; /* Color llamativo para el CTA */
   color: white; /* Texto blanco */
@@ -257,3 +120,25 @@ main {
   padding: 20px;
   background-color: #f8f9fa; /* Fondo gris claro */
 }
+
+/* Estilo para las tarjetas */
+.card:hover {
+  transform: scale(1.02); /* Un leve aumento en el tamaño de la tarjeta */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Ajustar el contenido principal para que siempre esté al menos en el 100% de la altura de la página */
+body, html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+main {
+  flex: 1; /* Esto hace que el contenido ocupe el espacio disponible */
+}
+

@@ -1,16 +1,19 @@
 /* Establecer el color general de fondo y texto */
+body, html {
+  height: 100%; /* Asegura que el body y el html ocupen toda la altura de la ventana */
+  margin: 0; /* Elimina márgenes predeterminados */
+}
+
 body {
   background-color: #f8f9fa; /* Fondo blanco/ligeramente gris */
   color: #000000; /* Texto negro */
   display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Hace que el body ocupe toda la altura de la ventana */
-  margin: 0;
+  flex-direction: column; /* Hace que el body esté en columna */
+  min-height: 100vh; /* Esto asegura que el body ocupe toda la altura de la ventana */
 }
 
-/* Asegurarse de que el contenido principal ocupe el espacio restante */
 main {
-  flex: 1; /* Esto hace que el contenido ocupe el espacio disponible */
+  flex: 1; /* Hace que el contenido ocupe todo el espacio disponible */
   padding-bottom: 50px; /* Añadir un espacio en la parte inferior para evitar que el footer se superponga */
 }
 
@@ -18,7 +21,7 @@ main {
 header {
   background-color: #000000; /* Fondo negro */
   color: white; /* Texto blanco */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Sombra sutil */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
   z-index: 9999; /* Asegurarse de que el header esté por encima de otros elementos */
 }
 
@@ -126,19 +129,3 @@ input:focus, textarea:focus, select:focus {
   transform: scale(1.02); /* Un leve aumento en el tamaño de la tarjeta */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
-
-/* Ajustar el contenido principal para que siempre esté al menos en el 100% de la altura de la página */
-body, html {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-}
-
-main {
-  flex: 1; /* Esto hace que el contenido ocupe el espacio disponible */
-}
-

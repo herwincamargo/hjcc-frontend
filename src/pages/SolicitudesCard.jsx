@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';  // Importa Link para crear enlaces dentro de la aplicación
 
 const SolicitudesCard = ({ solicitud }) => {
   return (
@@ -15,6 +16,11 @@ const SolicitudesCard = ({ solicitud }) => {
         <p className="card-text">
           <small className="text-muted">País: {solicitud.pais}</small>
         </p>
+
+        {/* Link para ver los detalles de la solicitud */}
+        <Link to={`/solicitudes/${solicitud.urlSlug}`} className="btn btn-link">
+          Ver detalles
+        </Link>
       </div>
     </div>
   );

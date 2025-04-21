@@ -61,14 +61,14 @@ const SolicitudDetalles = () => {
       </div>
 
       {/* Mostrar los datos del solicitante cuando el botón es clickeado */}
-      {showContact && solicitud && solicitud.nombre && solicitud.email && solicitud.telefono && (
-        <div className="mt-4">
-          <h5>Información de Contacto:</h5>
-          <p><strong>Nombre:</strong> {solicitud.nombre}</p>
-          <p><strong>Email:</strong> {solicitud.email}</p>
-          <p><strong>Teléfono:</strong> {solicitud.telefono}</p>
-        </div>
-      )}
+      {showContact && solicitud && (
+  <div className="mt-4">
+    <h5>Información de Contacto:</h5>
+    <p><strong>Nombre:</strong> {solicitud.nombre || 'No disponible'}</p>
+    <p><strong>Email:</strong> {solicitud.email || 'No disponible'}</p>
+    <p><strong>Teléfono:</strong> {solicitud.telefono || 'No disponible'}</p>
+  </div>
+)}
     </div>
   );
 };

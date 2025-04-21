@@ -58,7 +58,7 @@ const SolicitudDetalles = () => {
       </div>
 
       {/* Mostrar los datos del solicitante cuando el botón es clickeado */}
-      {showContact && solicitud.contacto && (
+      {showContact && solicitud.nombre && solicitud.email && solicitud.telefono && (
         <div className="mt-4">
           <h5>Información de Contacto:</h5>
           <p><strong>Nombre:</strong> {solicitud.nombre}</p>

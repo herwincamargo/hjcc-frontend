@@ -129,3 +129,7 @@ input:focus, textarea:focus, select:focus {
   transform: scale(1.02); /* Un leve aumento en el tamaño de la tarjeta */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
+
+.card-title {
+  font-weight: bold;
+}

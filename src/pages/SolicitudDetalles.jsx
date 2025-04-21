@@ -56,19 +56,21 @@ const SolicitudDetalles = () => {
       {/* Botón para mostrar los detalles de contacto del solicitante */}
       <div className="text-center mt-4">
         <button className="btn btn-primary" onClick={handleContactClick}>
-          {showContact ? "Ocultar contacto" : "Contactar solicitante"}
+          {showContact ? "Ocultar contacto" : "Información de contacto"}
         </button>
       </div>
 
       {/* Mostrar los datos del solicitante cuando el botón es clickeado */}
-      {showContact && solicitud && (
-  <div className="mt-4">
-    <h5>Información de Contacto:</h5>
-    <p><strong>Nombre:</strong> {solicitud.nombre || 'No disponible'}</p>
-    <p><strong>Email:</strong> {solicitud.email || 'No disponible'}</p>
-    <p><strong>Teléfono:</strong> {solicitud.telefono || 'No disponible'}</p>
-  </div>
-)}
+      {showContact && solicitud && solicitud.nombre && solicitud.email && solicitud.telefono && (
+        <div className="mt-4 card">
+          <div className="card-body">
+            <h5>Información de Contacto:</h5>
+            <p><strong>Nombre:</strong> {solicitud.nombre}</p>
+            <p><strong>Email:</strong> {solicitud.email}</p>
+            <p><strong>Teléfono:</strong> {solicitud.telefono}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

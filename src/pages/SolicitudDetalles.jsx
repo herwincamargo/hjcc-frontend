@@ -11,7 +11,10 @@ const SolicitudDetalles = () => {
     // Realizar la solicitud al backend usando el slug
     fetch(`https://hjcc-backend.onrender.com/api/solicitudes/${slug}`)
       .then((response) => response.json())
-      .then((data) => setSolicitud(data))
+      .then((data) => {
+        console.log(data);  // Verifica los datos recibidos
+        setSolicitud(data);
+      })
       .catch((error) => setError("Solicitud no encontrada"));
   }, [slug]);  // Se vuelve a ejecutar cada vez que cambie el slug
 
@@ -58,12 +61,12 @@ const SolicitudDetalles = () => {
       </div>
 
       {/* Mostrar los datos del solicitante cuando el botón es clickeado */}
-      {showContact && solicitud.contacto && (
+      {showContact && solicitud && solicitud.nombre && solicitud.email && solicitud.telefono && (
         <div className="mt-4">
           <h5>Información de Contacto:</h5>
-          <p><strong>Nombre:</strong> {solicitud.contacto.nombre}</p>
-          <p><strong>Email:</strong> {solicitud.contacto.email}</p>
-          <p><strong>Teléfono:</strong> {solicitud.contacto.telefono}</p>
+          <p><strong>Nombre:</strong> {solicitud.nombre}</p>
+          <p><strong>Email:</strong> {solicitud.email}</p>
+          <p><strong>Teléfono:</strong> {solicitud.telefono}</p>
         </div>
       )}
     </div>

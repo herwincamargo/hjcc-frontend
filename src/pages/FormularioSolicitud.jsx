@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";  // Importa useNavigate en lugar de useHistory
+import { useNavigate } from "react-router-dom";
 
 const FormularioSolicitud = () => {
   const [titulo, setTitulo] = useState("");
@@ -7,14 +7,17 @@ const FormularioSolicitud = () => {
   const [urgencia, setUrgencia] = useState("");
   const [ciudad, setCiudad] = useState("");
   const [pais, setPais] = useState("");
+  const [nombre, setNombre] = useState("");  // Campo para el nombre
+  const [email, setEmail] = useState("");    // Campo para el email
+  const [telefono, setTelefono] = useState(""); // Campo para el teléfono
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate();  // Inicializa el hook useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!titulo || !descripcion || !urgencia || !ciudad || !pais) {
+    if (!titulo || !descripcion || !urgencia || !ciudad || !pais || !nombre || !email || !telefono) {
       setError("Todos los campos son obligatorios");
       return;
     }
@@ -30,6 +33,9 @@ const FormularioSolicitud = () => {
         urgencia,
         ciudad,
         pais,
+        nombre,
+        email,
+        telefono
       }),
     })
       .then((response) => response.json())
@@ -107,6 +113,42 @@ const FormularioSolicitud = () => {
             required
           />
         </div>
+
+        {/* Campos de contacto */}
+        <div className="form-group">
+          <label htmlFor="nombre">Nombre</label>
+          <input
+            type="text"
+            id="nombre"
+            className="form-control"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            className="form-control"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="telefono">Teléfono</label>
+          <input
+            type="text"
+            id="telefono"
+            className="form-control"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+            required
+          />
+        </div>
+
         <button type="submit" className="btn btn-primary mt-3">
           Enviar Solicitud
         </button>

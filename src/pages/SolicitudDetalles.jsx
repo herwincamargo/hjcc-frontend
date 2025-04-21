@@ -5,6 +5,7 @@ const SolicitudDetalles = () => {
   const { slug } = useParams();  // Obtener el slug de la URL
   const [solicitud, setSolicitud] = useState(null);
   const [error, setError] = useState(null);
+  const [showContact, setShowContact] = useState(false);  // Estado para controlar la visibilidad de la información de contacto
 
   useEffect(() => {
     // Realizar la solicitud al backend usando el slug
@@ -13,6 +14,10 @@ const SolicitudDetalles = () => {
       .then((data) => setSolicitud(data))
       .catch((error) => setError("Solicitud no encontrada"));
   }, [slug]);  // Se vuelve a ejecutar cada vez que cambie el slug
+
+  const handleContactClick = () => {
+    setShowContact(!showContact);  // Alternar la visibilidad de los datos de contacto
+  };
 
   if (error) {
     return <p className="text-center text-danger">{error}</p>;
@@ -45,10 +50,22 @@ const SolicitudDetalles = () => {
         </div>
       </div>
 
-      {/* Aquí puedes agregar una sección para contactar al solicitante */}
+      {/* Botón para mostrar los detalles de contacto del solicitante */}
       <div className="text-center mt-4">
-        <button className="btn btn-primary">Contactar solicitante</button>
+        <button className="btn btn-primary" onClick={handleContactClick}>
+          {showContact ? "Ocultar contacto" : "Contactar solicitante"}
+        </button>
       </div>
+
+      {/* Mostrar los datos del solicitante cuando el botón es clickeado */}
+      {showContact && solicitud.contacto && (
+        <div className="mt-4">
+          <h5>Información de Contacto:</h5>
+          <p><strong>Nombre:</strong> {solicitud.nombre}</p>
+          <p><strong>Email:</strong> {solicitud.email}</p>
+          <p><strong>Teléfono:</strong> {solicitud.telefono}</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,9 +1,10 @@
-/* Establecer el color general de fondo y texto */
-body, html {
+/* Asegura que el body y el html ocupen toda la altura de la ventana */
+html, body {
   height: 100%; /* Asegura que el body y el html ocupen toda la altura de la ventana */
   margin: 0; /* Elimina márgenes predeterminados */
 }
 
+/* Establece que el body tenga una estructura flexible con columna */
 body {
   background-color: #f8f9fa; /* Fondo blanco/ligeramente gris */
   color: #000000; /* Texto negro */
@@ -12,6 +13,7 @@ body {
   min-height: 100vh; /* Esto asegura que el body ocupe toda la altura de la ventana */
 }
 
+/* Asegura que el main ocupe el espacio restante de la página */
 main {
   flex: 1; /* Hace que el contenido ocupe todo el espacio disponible */
   padding-bottom: 50px; /* Añadir un espacio en la parte inferior para evitar que el footer se superponga */
@@ -42,6 +44,7 @@ footer {
   width: 100%;
   position: relative; /* Asegura que el footer no se solape */
   margin-top: 0; /* Eliminar cualquier margen extra */
+  /* Al utilizar el flexbox en el body, este pie de página siempre se mantendrá en la parte inferior */
 }
 
 /* Personalización de enlaces en el footer */

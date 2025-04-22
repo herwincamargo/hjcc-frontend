@@ -50,6 +50,7 @@ footer {
 /* Personalización de enlaces en el footer */
 footer a {
   color: #808080; /* Gris para enlaces */
+  text-decoration: none; /* Elimina el subrayado */
 }
 
 footer a:hover {

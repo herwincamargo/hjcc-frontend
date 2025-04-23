@@ -96,6 +96,25 @@ const FormularioSolicitud = () => {
             required
           ></textarea>
         </div>
+        {/* Categoría aquí después de la descripción */}
+        <div className="form-group">
+          <label htmlFor="categoria">Categoría</label>
+          <select
+            id="categoria"
+            className="form-control"
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
+            required
+          >
+            <option value="">Seleccione una categoría</option>
+            {categorias.map((cat, index) => (
+              <option key={index} value={cat}>
+                {cat}
+              </option>
+            ))}
+            <option value="Otro">Otro</option> {/* Opción para otros */}
+          </select>
+        </div>
         <div className="form-group">
           <label htmlFor="urgencia">Urgencia</label>
           <select
@@ -167,26 +186,6 @@ const FormularioSolicitud = () => {
             onChange={(e) => setTelefono(e.target.value)}
             required
           />
-        </div>
-
-        {/* Categoría */}
-        <div className="form-group">
-          <label htmlFor="categoria">Categoría</label>
-          <select
-            id="categoria"
-            className="form-control"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            required
-          >
-            <option value="">Seleccione una categoría</option>
-            {categorias.map((cat, index) => (
-              <option key={index} value={cat}>
-                {cat}
-              </option>
-            ))}
-            <option value="Otro">Otro</option> {/* Opción para otros */}
-          </select>
         </div>
 
         <button type="submit" className="btn btn-primary mt-3">

@@ -17,9 +17,8 @@ const Solicitudes = () => {
   // Estado para las sugerencias
   const [suggestions, setSuggestions] = useState({
     categoria: [],
-    urgencia: ['Alta', 'Media', 'Baja'],
     ciudad: [],
-    pais: ['España', 'México', 'Colombia'],
+    pais: [],
   });
 
   // Función para manejar cambios en los filtros
@@ -27,23 +26,24 @@ const Solicitudes = () => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
 
-    // Si el valor cambia, buscaremos sugerencias
-    if (value.length > 2) {
-      // Aquí pueden ir los resultados predictivos
+    // Lógica de autocompletado solo para categorías, ciudades y países
+    if (value.length > 2) { // Solo buscar si el texto es largo
+      // Hacer un fetch al backend para obtener las sugerencias
       const response = await fetch(`https://hjcc-backend.onrender.com/api/solicitudes?${name}=${value}`);
       const data = await response.json();
 
-      // Aquí creamos las sugerencias para la categoría o ciudad dependiendo del campo
       if (name === 'categoria') {
-        const categorias = [...new Set(data.map(s => s.categoria))];  // Filtramos duplicados
+        const categorias = [...new Set(data.map(s => s.categoria))]; // Filtrar duplicados
         setSuggestions({ ...suggestions, categoria: categorias });
       } else if (name === 'ciudad') {
         const ciudades = [...new Set(data.map(s => s.ciudad))];
         setSuggestions({ ...suggestions, ciudad: ciudades });
+      } else if (name === 'pais') {
+        const paises = [...new Set(data.map(s => s.pais))];
+        setSuggestions({ ...suggestions, pais: paises });
       }
     } else {
-      // Limpiar las sugerencias cuando el texto es corto
-      setSuggestions({ ...suggestions, categoria: [], ciudad: [] });
+      setSuggestions({ ...suggestions, categoria: [], ciudad: [], pais: [] });
     }
   };
 
@@ -69,7 +69,7 @@ const Solicitudes = () => {
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
 
-      {/* Filtros */}
+      {/* Filtros - Disposición Horizontal */}
       <div className="mb-4 row">
         <div className="col-md-3">
           <input
@@ -88,19 +88,17 @@ const Solicitudes = () => {
         </div>
 
         <div className="col-md-3">
-          <input
+          <select
             name="urgencia"
             value={filters.urgencia}
             onChange={handleFilterChange}
-            className="form-control"
-            placeholder="Filtrar por urgencia"
-            list="urgencia-list"
-          />
-          <datalist id="urgencia-list">
-            {suggestions.urgencia.map((urg, index) => (
-              <option key={index} value={urg} />
-            ))}
-          </datalist>
+            className="form-select"
+          >
+            <option value="">Filtrar por urgencia</option>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </select>
         </div>
 
         <div className="col-md-3">

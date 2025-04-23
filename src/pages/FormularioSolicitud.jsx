@@ -1,39 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const FormularioSolicitud = () => {
+  const [categorias, setCategorias] = useState([]);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [urgencia, setUrgencia] = useState("");
   const [ciudad, setCiudad] = useState("");
   const [pais, setPais] = useState("");
-  const [nombre, setNombre] = useState("");  // Campo para el nombre
-  const [email, setEmail] = useState("");    // Campo para el email
-  const [telefono, setTelefono] = useState(""); // Campo para el teléfono
-  const [categoria, setCategoria] = useState("");  // Campo para la categoría
+  const [nombre, setNombre] = useState("");  
+  const [email, setEmail] = useState("");    
+  const [telefono, setTelefono] = useState(""); 
   const [error, setError] = useState(null);
 
-  const [categoriasDisponibles, setCategoriasDisponibles] = useState([]);  // Estado para las categorías
-
-  const navigate = useNavigate();
-
-  // Fetch de las categorías disponibles desde el backend
   useEffect(() => {
     fetch("https://hjcc-backend.onrender.com/api/categorias")
       .then((response) => response.json())
-      .then((data) => {
-        setCategoriasDisponibles(data);  // Establecer las categorías disponibles
-      })
+      .then((data) => setCategorias(data))
       .catch((error) => {
-        console.error("Error al cargar categorías", error);
-        setError("No se pudieron cargar las categorías.");
+        console.error("Error al cargar las categorías:", error);
       });
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!titulo || !descripcion || !urgencia || !ciudad || !pais || !nombre || !email || !telefono || !categoria) {
+    if (!titulo || !descripcion || !urgencia || !ciudad || !pais || !nombre || !email || !telefono) {
       setError("Todos los campos son obligatorios");
       return;
     }
@@ -52,15 +43,13 @@ const FormularioSolicitud = () => {
         nombre,
         email,
         telefono,
-        categoria,  // Enviar la categoría seleccionada
+        categoria: categorias[0] || "",  // Usamos la primera categoría disponible por defecto
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Solicitud creada:", data);
         if (data && data.urlSlug) {
-          // Después de crear la solicitud, redirigir a la página de detalles de la solicitud
-          navigate(`/solicitudes/${data.urlSlug}`);  // Redirigir con el URL del slug
+          navigate(`/solicitudes/${data.urlSlug}`);  
         } else {
           setError("No se pudo obtener el enlace de la solicitud.");
         }
@@ -135,26 +124,6 @@ const FormularioSolicitud = () => {
           />
         </div>
 
-        {/* Campo para la categoría */}
-        <div className="form-group">
-          <label htmlFor="categoria">Categoría</label>
-          <select
-            id="categoria"
-            className="form-control"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            required
-          >
-            <option value="">Seleccione una categoría</option>
-            {categoriasDisponibles.length > 0 && categoriasDisponibles.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-            <option value="Otro">Otro</option>  {/* Opción para categorías personalizadas */}
-          </select>
-        </div>
-
         {/* Campos de contacto */}
         <div className="form-group">
           <label htmlFor="nombre">Nombre</label>
@@ -188,6 +157,21 @@ const FormularioSolicitud = () => {
             onChange={(e) => setTelefono(e.target.value)}
             required
           />
+        </div>
+
+        {/* Selección de categoría */}
+        <div className="form-group">
+          <label htmlFor="categoria">Categoría</label>
+          <select
+            id="categoria"
+            className="form-control"
+            required
+          >
+            <option value="">Seleccionar Categoría</option>
+            {categorias.length > 0 && categorias.map((categoria, index) => (
+              <option key={index} value={categoria}>{categoria}</option>
+            ))}
+          </select>
         </div>
 
         <button type="submit" className="btn btn-primary mt-3">

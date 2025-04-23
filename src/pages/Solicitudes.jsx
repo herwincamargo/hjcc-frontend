@@ -14,21 +14,20 @@ const Solicitudes = () => {
     pais: '',
   });
 
-  // Estado para las sugerencias
+  // Estado para las sugerencias (opciones predictivas para los campos)
   const [suggestions, setSuggestions] = useState({
     categoria: [],
     ciudad: [],
     pais: [],
   });
 
-  // Función para manejar cambios en los filtros
+  // Función para manejar el cambio en los campos de filtro
   const handleFilterChange = async (e) => {
     const { name, value } = e.target;
-    setFilters({ ...filters, [name]: value });
+    setFilters({ ...filters, [name]: value });  // Actualiza el filtro correspondiente
 
-    // Lógica de autocompletado solo para categorías, ciudades y países
-    if (value.length > 2) { // Solo buscar si el texto es largo
-      // Hacer un fetch al backend para obtener las sugerencias
+    // Lógica para autocompletar categorías, ciudades, y países
+    if (value.length > 2) {  // Solo buscar si el texto tiene más de 2 caracteres
       const response = await fetch(`https://hjcc-backend.onrender.com/api/solicitudes?${name}=${value}`);
       const data = await response.json();
 
@@ -63,13 +62,13 @@ const Solicitudes = () => {
     };
 
     fetchSolicitudes();
-  }, [filters]);  // Refrescar cuando los filtros cambian
+  }, [filters]);  // Este useEffect se ejecuta cada vez que los filtros cambian
 
   return (
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
 
-      {/* Filtros - Disposición Horizontal */}
+      {/* Filtros */}
       <div className="mb-4 row">
         <div className="col-md-3">
           <input

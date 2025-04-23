@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const FormularioSolicitud = () => {
@@ -10,14 +10,27 @@ const FormularioSolicitud = () => {
   const [nombre, setNombre] = useState("");  // Campo para el nombre
   const [email, setEmail] = useState("");    // Campo para el email
   const [telefono, setTelefono] = useState(""); // Campo para el teléfono
+  const [categoria, setCategoria] = useState("");  // Campo para la categoría
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
+  const [categoriasDisponibles, setCategoriasDisponibles] = useState([]);
+
+  useEffect(() => {
+    // Fetching available categories from backend
+    fetch("https://hjcc-backend.onrender.com/api/categorias")
+      .then((response) => response.json())
+      .then((data) => {
+        setCategoriasDisponibles(data);
+      })
+      .catch((error) => console.error("Error al cargar categorías", error));
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!titulo || !descripcion || !urgencia || !ciudad || !pais || !nombre || !email || !telefono) {
+    if (!titulo || !descripcion || !urgencia || !ciudad || !pais || !nombre || !email || !telefono || !categoria) {
       setError("Todos los campos son obligatorios");
       return;
     }
@@ -35,7 +48,8 @@ const FormularioSolicitud = () => {
         pais,
         nombre,
         email,
-        telefono
+        telefono,
+        categoria,  // Enviar la categoría seleccionada
       }),
     })
       .then((response) => response.json())
@@ -116,6 +130,26 @@ const FormularioSolicitud = () => {
             onChange={(e) => setPais(e.target.value)}
             required
           />
+        </div>
+
+        {/* Campo para la categoría */}
+        <div className="form-group">
+          <label htmlFor="categoria">Categoría</label>
+          <select
+            id="categoria"
+            className="form-control"
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
+            required
+          >
+            <option value="">Seleccione una categoría</option>
+            {categoriasDisponibles.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+            <option value="Otro">Otro</option>  {/* Opción para categorías personalizadas */}
+          </select>
         </div>
 
         {/* Campos de contacto */}

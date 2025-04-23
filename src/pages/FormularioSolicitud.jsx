@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const FormularioSolicitud = () => {
   const [titulo, setTitulo] = useState("");
@@ -7,31 +7,34 @@ const FormularioSolicitud = () => {
   const [urgencia, setUrgencia] = useState("");
   const [ciudad, setCiudad] = useState("");
   const [pais, setPais] = useState("");
-  const [nombre, setNombre] = useState("");  // Campo para el nombre
-  const [email, setEmail] = useState("");    // Campo para el email
-  const [telefono, setTelefono] = useState(""); // Campo para el teléfono
-  const [categoria, setCategoria] = useState(""); // Campo para la categoría
-  const [categorias, setCategorias] = useState([]); // Lista de categorías
+  const [nombre, setNombre] = useState("");  
+  const [email, setEmail] = useState("");    
+  const [telefono, setTelefono] = useState(""); 
+  const [categoria, setCategoria] = useState("");  // Estado para la categoría
+  const [categoriasSugeridas, setCategoriasSugeridas] = useState([]);  // Sugerencias de categorías
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  // Cargar las categorías desde el backend al montar el componente
-  useEffect(() => {
-    fetch("https://hjcc-backend.onrender.com/api/categorias")
-      .then((response) => response.json())
-      .then((data) => {
-        // Filtrar "Otro" si está presente en la lista de categorías
-        const filteredCategorias = data.filter((cat) => cat !== "Otro");
-        setCategorias(filteredCategorias);
-      })
-      .catch((error) => {
-        console.error("Error al cargar las categorías:", error);
-        setError("Error al cargar las categorías");
-      });
-  }, []);
+  const fetchCategorias = async (query) => {
+    try {
+      const response = await fetch(`https://hjcc-backend.onrender.com/api/categorias?search=${query}`);
+      const data = await response.json();
+      setCategoriasSugeridas(data);
+    } catch (error) {
+      console.error('Error al obtener las categorías:', error);
+    }
+  };
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (categoria.length > 2) {  // Solo buscar cuando el texto es más largo que 2 caracteres
+      fetchCategorias(categoria);
+    } else {
+      setCategoriasSugeridas([]);
+    }
+  }, [categoria]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!titulo || !descripcion || !urgencia || !ciudad || !pais || !nombre || !email || !telefono || !categoria) {
@@ -39,37 +42,34 @@ const FormularioSolicitud = () => {
       return;
     }
 
-    fetch("https://hjcc-backend.onrender.com/api/solicitudes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        titulo,
-        descripcion,
-        urgencia,
-        ciudad,
-        pais,
-        nombre,
-        email,
-        telefono,
-        categoria // Enviar categoría seleccionada
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Solicitud creada:", data);
-        if (data && data.urlSlug) {
-          // Después de crear la solicitud, redirigir a la página de detalles de la solicitud
-          navigate(`/solicitudes/${data.urlSlug}`);  // Redirigir con el URL del slug
-        } else {
-          setError("No se pudo obtener el enlace de la solicitud.");
-        }
-      })
-      .catch((error) => {
-        setError("Error al crear la solicitud");
-        console.error(error);
+    try {
+      const response = await fetch("https://hjcc-backend.onrender.com/api/solicitudes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          titulo,
+          descripcion,
+          urgencia,
+          ciudad,
+          pais,
+          nombre,
+          email,
+          telefono,
+          categoria
+        }),
       });
+      const data = await response.json();
+      if (data && data.urlSlug) {
+        navigate(`/solicitudes/${data.urlSlug}`);
+      } else {
+        setError("No se pudo obtener el enlace de la solicitud.");
+      }
+    } catch (error) {
+      setError("Error al crear la solicitud");
+      console.error(error);
+    }
   };
 
   return (
@@ -88,6 +88,7 @@ const FormularioSolicitud = () => {
             required
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="descripcion">Descripción</label>
           <textarea
@@ -98,25 +99,7 @@ const FormularioSolicitud = () => {
             required
           ></textarea>
         </div>
-        {/* Categoría aquí después de la descripción */}
-        <div className="form-group">
-          <label htmlFor="categoria">Categoría</label>
-          <select
-            id="categoria"
-            className="form-control"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            required
-          >
-            <option value="">Seleccione una categoría</option>
-            {categorias.map((cat, index) => (
-              <option key={index} value={cat}>
-                {cat}
-              </option>
-            ))}
-            <option value="Otro">Otro</option> {/* Opción para otros */}
-          </select>
-        </div>
+
         <div className="form-group">
           <label htmlFor="urgencia">Urgencia</label>
           <select
@@ -132,6 +115,27 @@ const FormularioSolicitud = () => {
             <option value="Baja">Baja</option>
           </select>
         </div>
+
+        <div className="form-group">
+          <label htmlFor="categoria">Categoría</label>
+          <input
+            type="text"
+            id="categoria"
+            className="form-control"
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
+            placeholder="Escriba la categoría"
+            required
+            list="categoria-list"
+          />
+          <datalist id="categoria-list">
+            {categoriasSugeridas.map((cat, index) => (
+              <option key={index} value={cat} />
+            ))}
+            <option value="Otro" />
+          </datalist>
+        </div>
+
         <div className="form-group">
           <label htmlFor="ciudad">Ciudad</label>
           <input
@@ -143,6 +147,7 @@ const FormularioSolicitud = () => {
             required
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="pais">País</label>
           <input
@@ -155,7 +160,6 @@ const FormularioSolicitud = () => {
           />
         </div>
 
-        {/* Campos de contacto */}
         <div className="form-group">
           <label htmlFor="nombre">Nombre</label>
           <input

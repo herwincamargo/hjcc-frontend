@@ -13,18 +13,21 @@ const FormularioSolicitud = () => {
   const [categoria, setCategoria] = useState("");  // Campo para la categoría
   const [error, setError] = useState(null);
 
+  const [categoriasDisponibles, setCategoriasDisponibles] = useState([]);  // Estado para las categorías
+
   const navigate = useNavigate();
 
-  const [categoriasDisponibles, setCategoriasDisponibles] = useState([]);
-
-  // Fetch de las categorías disponibles
+  // Fetch de las categorías disponibles desde el backend
   useEffect(() => {
     fetch("https://hjcc-backend.onrender.com/api/categorias")
       .then((response) => response.json())
       .then((data) => {
-        setCategoriasDisponibles(data); // Establecer las categorías disponibles
+        setCategoriasDisponibles(data);  // Establecer las categorías disponibles
       })
-      .catch((error) => console.error("Error al cargar categorías", error));
+      .catch((error) => {
+        console.error("Error al cargar categorías", error);
+        setError("No se pudieron cargar las categorías.");
+      });
   }, []);
 
   const handleSubmit = (e) => {

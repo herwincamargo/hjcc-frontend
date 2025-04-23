@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import SolicitudesCard from './SolicitudesCard';  // Asegúrate de tener el componente SolicitudesCard
+import SolicitudesCard from './SolicitudesCard';
 
 const Solicitudes = () => {
   const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Estado para los filtros
   const [filters, setFilters] = useState({
     categoria: '',
     urgencia: '',
@@ -12,9 +14,18 @@ const Solicitudes = () => {
     pais: '',
   });
 
+  // Manejar el cambio en los campos de filtro
+  const handleFilterChange = (e) => {
+    setFilters({
+      ...filters,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Fetch solicitudes con filtros
   useEffect(() => {
+    const query = new URLSearchParams(filters).toString();  // Convertir los filtros en parámetros de consulta
     const fetchSolicitudes = async () => {
-      const query = new URLSearchParams(filters).toString();  // Convierte los filtros a parámetros de consulta
       try {
         const response = await fetch(`https://hjcc-backend.onrender.com/api/solicitudes?${query}`);
         const data = await response.json();
@@ -27,54 +38,71 @@ const Solicitudes = () => {
     };
 
     fetchSolicitudes();
-  }, [filters]);  // Vuelve a hacer la solicitud cuando los filtros cambien
-
-  // Función para actualizar el estado de los filtros
-  const handleFilterChange = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value,
-    });
-  };
+  }, [filters]);  // Refrescar cuando los filtros cambian
 
   return (
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
 
-      {/* Formulario de Filtro */}
-      <div className="mb-4">
-        <input
-          type="text"
-          name="categoria"
-          placeholder="Filtrar por categoría"
-          value={filters.categoria}
-          onChange={handleFilterChange}
-          className="form-control mb-2"
-        />
-        <input
-          type="text"
-          name="urgencia"
-          placeholder="Filtrar por urgencia"
-          value={filters.urgencia}
-          onChange={handleFilterChange}
-          className="form-control mb-2"
-        />
-        <input
-          type="text"
-          name="ciudad"
-          placeholder="Filtrar por ciudad"
-          value={filters.ciudad}
-          onChange={handleFilterChange}
-          className="form-control mb-2"
-        />
-        <input
-          type="text"
-          name="pais"
-          placeholder="Filtrar por país"
-          value={filters.pais}
-          onChange={handleFilterChange}
-          className="form-control mb-2"
-        />
+      {/* Filtros - Disposición Horizontal */}
+      <div className="mb-4 row">
+        <div className="col-md-3">
+          <select
+            name="categoria"
+            value={filters.categoria}
+            onChange={handleFilterChange}
+            className="form-select"
+          >
+            <option value="">Filtrar por categoría</option>
+            <option value="Limpieza">Limpieza</option>
+            <option value="Mecánico">Mecánico</option>
+            <option value="Jardinería">Jardinería</option>
+            <option value="Electricista">Electricista</option>
+          </select>
+        </div>
+
+        <div className="col-md-3">
+          <select
+            name="urgencia"
+            value={filters.urgencia}
+            onChange={handleFilterChange}
+            className="form-select"
+          >
+            <option value="">Filtrar por urgencia</option>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+
+        <div className="col-md-3">
+          <select
+            name="ciudad"
+            value={filters.ciudad}
+            onChange={handleFilterChange}
+            className="form-select"
+          >
+            <option value="">Filtrar por ciudad</option>
+            <option value="Madrid">Madrid</option>
+            <option value="Barcelona">Barcelona</option>
+            <option value="Valencia">Valencia</option>
+            <option value="Sevilla">Sevilla</option>
+          </select>
+        </div>
+
+        <div className="col-md-3">
+          <select
+            name="pais"
+            value={filters.pais}
+            onChange={handleFilterChange}
+            className="form-select"
+          >
+            <option value="">Filtrar por país</option>
+            <option value="España">España</option>
+            <option value="México">México</option>
+            <option value="Colombia">Colombia</option>
+          </select>
+        </div>
       </div>
 
       {/* Mostrar mensaje de carga o error */}

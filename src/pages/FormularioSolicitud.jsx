@@ -86,6 +86,7 @@ const FormularioSolicitud = () => {
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
             required
+            placeholder="Ej. Reparación de aire acondicionado"
           />
         </div>
 
@@ -97,6 +98,7 @@ const FormularioSolicitud = () => {
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
             required
+            placeholder="Describe brevemente el servicio que necesitas."
           ></textarea>
         </div>
 
@@ -124,7 +126,7 @@ const FormularioSolicitud = () => {
             className="form-control"
             value={categoria}
             onChange={(e) => setCategoria(e.target.value)}
-            placeholder="Escriba la categoría"
+            placeholder="Ej. Electricista, Cerrajero, etc."
             required
             list="categoria-list"
           />
@@ -145,6 +147,7 @@ const FormularioSolicitud = () => {
             value={ciudad}
             onChange={(e) => setCiudad(e.target.value)}
             required
+            placeholder="Ej. Bogotá"
           />
         </div>
 
@@ -157,6 +160,7 @@ const FormularioSolicitud = () => {
             value={pais}
             onChange={(e) => setPais(e.target.value)}
             required
+            placeholder="Ej. Colombia"
           />
         </div>
 
@@ -169,8 +173,10 @@ const FormularioSolicitud = () => {
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
             required
+            placeholder="Ej. Juan Pérez"
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -180,8 +186,10 @@ const FormularioSolicitud = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            placeholder="Ej. juan@correo.com"
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="telefono">Teléfono</label>
           <input
@@ -191,6 +199,7 @@ const FormularioSolicitud = () => {
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
             required
+            placeholder="Ej. 123456789"
           />
         </div>
 

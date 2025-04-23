@@ -21,7 +21,9 @@ const FormularioSolicitud = () => {
     fetch("https://hjcc-backend.onrender.com/api/categorias")
       .then((response) => response.json())
       .then((data) => {
-        setCategorias(data);
+        // Filtrar "Otro" si está presente en la lista de categorías
+        const filteredCategorias = data.filter((cat) => cat !== "Otro");
+        setCategorias(filteredCategorias);
       })
       .catch((error) => {
         console.error("Error al cargar las categorías:", error);

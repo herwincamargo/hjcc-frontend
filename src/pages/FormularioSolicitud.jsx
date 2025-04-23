@@ -41,8 +41,12 @@ const FormularioSolicitud = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Solicitud creada:", data);
-        // Después de crear la solicitud, redirigir a la página de detalles de la solicitud
-        navigate(`/solicitudes/${data.urlSlug}`);  // Redirigir con el URL del slug
+        if (data && data.urlSlug) {
+          // Después de crear la solicitud, redirigir a la página de detalles de la solicitud
+          navigate(`/solicitudes/${data.urlSlug}`);  // Redirigir con el URL del slug
+        } else {
+          setError("No se pudo obtener el enlace de la solicitud.");
+        }
       })
       .catch((error) => {
         setError("Error al crear la solicitud");

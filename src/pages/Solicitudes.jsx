@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SolicitudesCard from './SolicitudesCard';  // Asegúrate de tener el componente SolicitudesCard
+import SolicitudesCard from './SolicitudesCard';
 
 const Solicitudes = () => {
   const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);

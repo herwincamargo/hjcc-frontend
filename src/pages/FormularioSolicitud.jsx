@@ -11,17 +11,22 @@ const FormularioSolicitud = () => {
   const [email, setEmail] = useState("");    // Campo para el email
   const [telefono, setTelefono] = useState(""); // Campo para el teléfono
   const [categoria, setCategoria] = useState(""); // Campo para la categoría
-  const [categorias, setCategorias] = useState([]); // Estado para las categorías
+  const [categorias, setCategorias] = useState([]); // Lista de categorías
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  // Obtener las categorías disponibles desde el backend
+  // Cargar las categorías desde el backend al montar el componente
   useEffect(() => {
     fetch("https://hjcc-backend.onrender.com/api/categorias")
       .then((response) => response.json())
-      .then((data) => setCategorias(data))
-      .catch((error) => console.error("Error al cargar las categorías:", error));
+      .then((data) => {
+        setCategorias(data);
+      })
+      .catch((error) => {
+        console.error("Error al cargar las categorías:", error);
+        setError("Error al cargar las categorías");
+      });
   }, []);
 
   const handleSubmit = (e) => {
@@ -46,7 +51,7 @@ const FormularioSolicitud = () => {
         nombre,
         email,
         telefono,
-        categoria
+        categoria // Enviar categoría seleccionada
       }),
     })
       .then((response) => response.json())
@@ -164,7 +169,7 @@ const FormularioSolicitud = () => {
           />
         </div>
 
-        {/* Campo para la categoría */}
+        {/* Categoría */}
         <div className="form-group">
           <label htmlFor="categoria">Categoría</label>
           <select
@@ -174,13 +179,13 @@ const FormularioSolicitud = () => {
             onChange={(e) => setCategoria(e.target.value)}
             required
           >
-            <option value="">Seleccione una categoría...</option>
+            <option value="">Seleccione una categoría</option>
             {categorias.map((cat, index) => (
               <option key={index} value={cat}>
                 {cat}
               </option>
             ))}
-            <option value="Otro">Otro</option>
+            <option value="Otro">Otro</option> {/* Opción para otros */}
           </select>
         </div>
 

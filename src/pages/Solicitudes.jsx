@@ -1,27 +1,81 @@
-import React, { useState, useEffect } from "react";
-import SolicitudesCard from "./SolicitudesCard";  // Asegúrate de tener el componente SolicitudesCard
+import React, { useState, useEffect } from 'react';
+import SolicitudesCard from './SolicitudesCard';  // Asegúrate de tener el componente SolicitudesCard
 
 const Solicitudes = () => {
   const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);
-  const [loading, setLoading] = useState(true);  // Para gestionar el estado de carga
-  const [error, setError] = useState(null);      // Para gestionar posibles errores
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [filters, setFilters] = useState({
+    categoria: '',
+    urgencia: '',
+    ciudad: '',
+    pais: '',
+  });
 
   useEffect(() => {
-    fetch("https://hjcc-backend.onrender.com/api/solicitudes")
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchSolicitudes = async () => {
+      const query = new URLSearchParams(filters).toString();  // Convierte los filtros a parámetros de consulta
+      try {
+        const response = await fetch(`https://hjcc-backend.onrender.com/api/solicitudes?${query}`);
+        const data = await response.json();
         setSolicitudesRecientes(data);
-        setLoading(false);  // Cambiar estado a "no cargando" una vez que los datos se reciben
-      })
-      .catch((error) => {
-        setError(error.message);  // Capturar el error y actualizar el estado
-        setLoading(false);        // De todos modos cambiar el estado a "no cargando"
-      });
-  }, []);  // Solo cargar una vez cuando el componente se monta
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchSolicitudes();
+  }, [filters]);  // Vuelve a hacer la solicitud cuando los filtros cambien
+
+  // Función para actualizar el estado de los filtros
+  const handleFilterChange = (e) => {
+    setFilters({
+      ...filters,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
+
+      {/* Formulario de Filtro */}
+      <div className="mb-4">
+        <input
+          type="text"
+          name="categoria"
+          placeholder="Filtrar por categoría"
+          value={filters.categoria}
+          onChange={handleFilterChange}
+          className="form-control mb-2"
+        />
+        <input
+          type="text"
+          name="urgencia"
+          placeholder="Filtrar por urgencia"
+          value={filters.urgencia}
+          onChange={handleFilterChange}
+          className="form-control mb-2"
+        />
+        <input
+          type="text"
+          name="ciudad"
+          placeholder="Filtrar por ciudad"
+          value={filters.ciudad}
+          onChange={handleFilterChange}
+          className="form-control mb-2"
+        />
+        <input
+          type="text"
+          name="pais"
+          placeholder="Filtrar por país"
+          value={filters.pais}
+          onChange={handleFilterChange}
+          className="form-control mb-2"
+        />
+      </div>
 
       {/* Mostrar mensaje de carga o error */}
       {loading && <p className="text-center">Cargando solicitudes...</p>}

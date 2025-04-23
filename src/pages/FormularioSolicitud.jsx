@@ -17,12 +17,12 @@ const FormularioSolicitud = () => {
 
   const [categoriasDisponibles, setCategoriasDisponibles] = useState([]);
 
+  // Fetch de las categorías disponibles
   useEffect(() => {
-    // Fetching available categories from backend
     fetch("https://hjcc-backend.onrender.com/api/categorias")
       .then((response) => response.json())
       .then((data) => {
-        setCategoriasDisponibles(data);
+        setCategoriasDisponibles(data); // Establecer las categorías disponibles
       })
       .catch((error) => console.error("Error al cargar categorías", error));
   }, []);
@@ -143,7 +143,7 @@ const FormularioSolicitud = () => {
             required
           >
             <option value="">Seleccione una categoría</option>
-            {categoriasDisponibles.map((cat) => (
+            {categoriasDisponibles.length > 0 && categoriasDisponibles.map((cat) => (
               <option key={cat} value={cat}>
                 {cat}
               </option>

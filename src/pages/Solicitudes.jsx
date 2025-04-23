@@ -14,12 +14,37 @@ const Solicitudes = () => {
     pais: '',
   });
 
-  // Manejar el cambio en los campos de filtro
-  const handleFilterChange = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value,
-    });
+  // Estado para las sugerencias
+  const [suggestions, setSuggestions] = useState({
+    categoria: [],
+    urgencia: ['Alta', 'Media', 'Baja'],
+    ciudad: [],
+    pais: ['España', 'México', 'Colombia'],
+  });
+
+  // Función para manejar cambios en los filtros
+  const handleFilterChange = async (e) => {
+    const { name, value } = e.target;
+    setFilters({ ...filters, [name]: value });
+
+    // Si el valor cambia, buscaremos sugerencias
+    if (value.length > 2) {
+      // Aquí pueden ir los resultados predictivos
+      const response = await fetch(`https://hjcc-backend.onrender.com/api/solicitudes?${name}=${value}`);
+      const data = await response.json();
+
+      // Aquí creamos las sugerencias para la categoría o ciudad dependiendo del campo
+      if (name === 'categoria') {
+        const categorias = [...new Set(data.map(s => s.categoria))];  // Filtramos duplicados
+        setSuggestions({ ...suggestions, categoria: categorias });
+      } else if (name === 'ciudad') {
+        const ciudades = [...new Set(data.map(s => s.ciudad))];
+        setSuggestions({ ...suggestions, ciudad: ciudades });
+      }
+    } else {
+      // Limpiar las sugerencias cuando el texto es corto
+      setSuggestions({ ...suggestions, categoria: [], ciudad: [] });
+    }
   };
 
   // Fetch solicitudes con filtros
@@ -44,64 +69,70 @@ const Solicitudes = () => {
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
 
-      {/* Filtros - Disposición Horizontal */}
+      {/* Filtros */}
       <div className="mb-4 row">
         <div className="col-md-3">
-          <select
+          <input
             name="categoria"
             value={filters.categoria}
             onChange={handleFilterChange}
-            className="form-select"
-          >
-            <option value="">Filtrar por categoría</option>
-            <option value="Limpieza">Limpieza</option>
-            <option value="Mecánico">Mecánico</option>
-            <option value="Jardinería">Jardinería</option>
-            <option value="Electricista">Electricista</option>
-          </select>
+            className="form-control"
+            placeholder="Filtrar por categoría"
+            list="categoria-list"
+          />
+          <datalist id="categoria-list">
+            {suggestions.categoria.map((cat, index) => (
+              <option key={index} value={cat} />
+            ))}
+          </datalist>
         </div>
 
         <div className="col-md-3">
-          <select
+          <input
             name="urgencia"
             value={filters.urgencia}
             onChange={handleFilterChange}
-            className="form-select"
-          >
-            <option value="">Filtrar por urgencia</option>
-            <option value="Alta">Alta</option>
-            <option value="Media">Media</option>
-            <option value="Baja">Baja</option>
-          </select>
+            className="form-control"
+            placeholder="Filtrar por urgencia"
+            list="urgencia-list"
+          />
+          <datalist id="urgencia-list">
+            {suggestions.urgencia.map((urg, index) => (
+              <option key={index} value={urg} />
+            ))}
+          </datalist>
         </div>
 
         <div className="col-md-3">
-          <select
+          <input
             name="ciudad"
             value={filters.ciudad}
             onChange={handleFilterChange}
-            className="form-select"
-          >
-            <option value="">Filtrar por ciudad</option>
-            <option value="Madrid">Madrid</option>
-            <option value="Barcelona">Barcelona</option>
-            <option value="Valencia">Valencia</option>
-            <option value="Sevilla">Sevilla</option>
-          </select>
+            className="form-control"
+            placeholder="Filtrar por ciudad"
+            list="ciudad-list"
+          />
+          <datalist id="ciudad-list">
+            {suggestions.ciudad.map((ciudad, index) => (
+              <option key={index} value={ciudad} />
+            ))}
+          </datalist>
         </div>
 
         <div className="col-md-3">
-          <select
+          <input
             name="pais"
             value={filters.pais}
             onChange={handleFilterChange}
-            className="form-select"
-          >
-            <option value="">Filtrar por país</option>
-            <option value="España">España</option>
-            <option value="México">México</option>
-            <option value="Colombia">Colombia</option>
-          </select>
+            className="form-control"
+            placeholder="Filtrar por país"
+            list="pais-list"
+          />
+          <datalist id="pais-list">
+            {suggestions.pais.map((pais, index) => (
+              <option key={index} value={pais} />
+            ))}
+          </datalist>
         </div>
       </div>
 

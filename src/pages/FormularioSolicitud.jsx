@@ -77,7 +77,7 @@ const FormularioSolicitud = () => {
       <h1 className="display-4 text-center mb-4">Solicitar Servicio</h1>
       {error && <p className="text-center text-danger">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="form-group mb-3">
           <label htmlFor="titulo">Título</label>
           <input
             type="text"
@@ -86,11 +86,11 @@ const FormularioSolicitud = () => {
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
             required
-            placeholder="Ej. Reparación de aire acondicionado"
+            placeholder="Reparación de aire acondicionado"
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <label htmlFor="descripcion">Descripción</label>
           <textarea
             id="descripcion"
@@ -102,7 +102,7 @@ const FormularioSolicitud = () => {
           ></textarea>
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <label htmlFor="urgencia">Urgencia</label>
           <select
             id="urgencia"
@@ -118,7 +118,7 @@ const FormularioSolicitud = () => {
           </select>
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <label htmlFor="categoria">Categoría</label>
           <input
             type="text"
@@ -126,7 +126,7 @@ const FormularioSolicitud = () => {
             className="form-control"
             value={categoria}
             onChange={(e) => setCategoria(e.target.value)}
-            placeholder="Ej. Electricista, Cerrajero, etc."
+            placeholder="Electricista, Cerrajero, etc."
             required
             list="categoria-list"
           />
@@ -138,7 +138,7 @@ const FormularioSolicitud = () => {
           </datalist>
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <label htmlFor="ciudad">Ciudad</label>
           <input
             type="text"
@@ -147,11 +147,11 @@ const FormularioSolicitud = () => {
             value={ciudad}
             onChange={(e) => setCiudad(e.target.value)}
             required
-            placeholder="Ej. Bogotá"
+            placeholder="Bogotá"
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <label htmlFor="pais">País</label>
           <input
             type="text"
@@ -160,11 +160,11 @@ const FormularioSolicitud = () => {
             value={pais}
             onChange={(e) => setPais(e.target.value)}
             required
-            placeholder="Ej. Colombia"
+            placeholder="Colombia"
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <label htmlFor="nombre">Nombre</label>
           <input
             type="text"
@@ -173,11 +173,11 @@ const FormularioSolicitud = () => {
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
             required
-            placeholder="Ej. Juan Pérez"
+            placeholder="Juan Pérez"
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -186,11 +186,11 @@ const FormularioSolicitud = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            placeholder="Ej. juan@correo.com"
+            placeholder="juan@correo.com"
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group mb-3">
           <label htmlFor="telefono">Teléfono</label>
           <input
             type="text"
@@ -199,7 +199,7 @@ const FormularioSolicitud = () => {
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
             required
-            placeholder="Ej. 123456789"
+            placeholder="123456789"
           />
         </div>
 

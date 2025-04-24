@@ -147,7 +147,7 @@ const FormularioSolicitud = () => {
             value={ciudad}
             onChange={(e) => setCiudad(e.target.value)}
             required
-            placeholder="Bogotá"
+            placeholder=""
           />
         </div>
 
@@ -160,7 +160,7 @@ const FormularioSolicitud = () => {
             value={pais}
             onChange={(e) => setPais(e.target.value)}
             required
-            placeholder="Colombia"
+            placeholder=""
           />
         </div>
 
@@ -173,7 +173,7 @@ const FormularioSolicitud = () => {
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
             required
-            placeholder="Juan Pérez"
+            placeholder=""
           />
         </div>
 
@@ -186,7 +186,7 @@ const FormularioSolicitud = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            placeholder="juan@correo.com"
+            placeholder=""
           />
         </div>
 
@@ -199,7 +199,7 @@ const FormularioSolicitud = () => {
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
             required
-            placeholder="123456789"
+            placeholder=""
           />
         </div>
 

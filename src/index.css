@@ -138,25 +138,20 @@ input:focus, textarea:focus, select:focus {
   font-weight: bold;
 }
 
-/* Estilo para el mensaje de Telegram */
-.telegram-message-container {
-  text-align: center; /* Centra el texto */
-  margin-top: 10px; /* Espacio entre el navbar y el mensaje */
+/* Estilo para los iconos dentro de la barra de navegación */
+.navbar-nav .nav-link i {
+  margin-right: 8px; /* Espacio entre el icono y el texto */
 }
 
-.telegram-message {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #0078e7;
-  margin: 0;
+/* Estilo para el botón "Unirme a la Comunidad" */
+.navbar-nav .btn-info {
+  padding: 6px 12px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
 }
 
-.telegram-message a {
-  color: #0078e7;
-  text-decoration: none;
-}
-
-.telegram-message a:hover {
-  text-decoration: underline;
+.navbar-nav .btn-info i {
+  margin-right: 5px;
 }
 

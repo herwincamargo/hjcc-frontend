@@ -24,42 +24,38 @@ const Header = () => {
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
-                  Home
+                  <i className="fas fa-home"></i> Home
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/solicitar-servicio">
-                  Solicitar Servicio
+                  <i className="fas fa-plus-circle"></i> Solicitar Servicio
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/solicitudes">
-                  Solicitudes
+                  <i className="fas fa-list"></i> Solicitudes
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/registro-profesional">
-                  Trabaja con Nosotros
+                  <i className="fas fa-briefcase"></i> Trabaja con Nosotros
                 </Link>
               </li>
             </ul>
+            <div className="ms-3">
+              <a
+                href="https://t.me/+KcLGOEqZaElhZmQx"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-info text-white"
+              >
+                <i className="fas fa-users"></i> Unirme a la Comunidad
+              </a>
+            </div>
           </div>
         </div>
       </nav>
-
-      {/* Mensaje de Telegram debajo del header pero dentro del mismo contenedor */}
-      <div className="telegram-message-container">
-        <p className="telegram-message">
-          ¡Únete a nuestro canal de Telegram y recibe notificaciones de nuevas solicitudes!{" "}
-          <a
-            href="https://t.me/+KcLGOEqZaElhZmQx"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Haz clic aquí para unirte
-          </a>
-        </p>
-      </div>
     </>
   );
 };

@@ -155,78 +155,62 @@ input:focus, textarea:focus, select:focus {
   margin-right: 5px;
 }
 
-/* Estilos para el cuadro flotante */
+/* Estilo del cuadro flotante */
 .floating-box {
   position: fixed;
-  bottom: 20px; /* Lo coloca en la parte inferior */
-  left: 20px; /* Lo coloca en la parte izquierda */
-  background-color: #000; /* Fondo negro */
-  color: #fff; /* Texto blanco */
+  bottom: 20px;  /* Posición desde la parte inferior */
+  left: 20px;    /* Posición desde la parte izquierda */
+  background-color: #000;  /* Fondo negro */
+  color: white;  /* Texto blanco */
   padding: 20px;
-  border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra suave */
-  z-index: 9999; /* Asegura que el cuadro quede por encima de otros elementos */
-  width: 300px; /* Ancho fijo */
-  display: flex;
-  flex-direction: column;
-}
-
-.floating-box-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.floating-box h4 {
-  margin-bottom: 10px;
-}
-
-.floating-box p {
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.floating-box .btn-telegram {
-  background-color: #0088cc;
-  color: white;
-  border-radius: 5px;
-  padding: 10px 15px;
-  font-size: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);  /* Sombra para darle profundidad */
+  z-index: 9999;  /* Asegura que el cuadro esté sobre otros elementos */
+  max-width: 300px;  /* Limita el ancho del cuadro */
   width: 100%;
+  font-size: 14px; /* Tamaño de texto */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.3s ease;
+  flex-direction: column;
+  gap: 10px; /* Espacio entre los elementos */
 }
 
-.floating-box .btn-telegram i {
-  margin-right: 10px; /* Espaciado entre el icono y el texto */
+/* Estilo del botón dentro del cuadro */
+.floating-box .btn {
+  background-color: #007bff; /* Fondo azul */
+  color: white;  /* Texto blanco */
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
 }
 
-.floating-box .btn-telegram:hover {
-  background-color: #006fa6;
+.floating-box .btn:hover {
+  background-color: #0056b3; /* Fondo azul oscuro en hover */
 }
 
+/* Estilo de la X de cierre */
 .floating-box .close-btn {
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 10px;
-  background: none;
-  border: none;
+  background-color: transparent;
   color: white;
-  font-size: 24px;
+  border: none;
+  font-size: 20px;
   cursor: pointer;
 }
 
 .floating-box .close-btn:hover {
-  color: #ccc;
+  color: #ccc;  /* Color en hover */
 }
 
-/* Hacer que el cuadro sea responsive */
+/* Responsive para pantallas pequeñas */
 @media (max-width: 768px) {
   .floating-box {
-    width: 80%; /* Más ancho en pantallas pequeñas */
-    left: 10px; /* Ajuste de posición */
+    max-width: 100%;
+    bottom: 10px;  /* Ajuste de la posición en pantallas pequeñas */
+    left: 10px;
+    padding: 15px;
   }
 }
 

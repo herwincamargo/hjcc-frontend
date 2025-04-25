@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Importar Link de React Router para redirigir
 
 const Header = () => {
   return (
@@ -42,17 +42,18 @@ const Header = () => {
                   <i className="fas fa-briefcase"></i> Trabaja con Nosotros
                 </Link>
               </li>
+              {/* Agregado el enlace de Telegram */}
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to={{ pathname: "https://t.me/+KcLGOEqZaElhZmQx" }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-telegram-plane"></i> Unirme a Telegram
+                </Link>
+              </li>
             </ul>
-            <div className="ms-3">
-              <a
-                href="https://t.me/+KcLGOEqZaElhZmQx"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-telegram"
-              >
-                <i className="fab fa-telegram-plane"></i> Unirme a Telegram
-              </a>
-            </div>
           </div>
         </div>
       </nav>

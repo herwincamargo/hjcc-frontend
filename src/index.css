@@ -207,7 +207,7 @@ input:focus, textarea:focus, select:focus {
 
 .btn-telegram:hover {
   background-color: #0077b5; /* Azul más oscuro de Telegram */
-  color: white; /* Asegura que el texto siga siendo blanco */
+  color: white !important;
 }
 
 

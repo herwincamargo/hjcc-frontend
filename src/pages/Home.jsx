@@ -33,6 +33,26 @@ const Home = () => {
 
   return (
     <div className="container py-5">
+      {/* Cuadro flotante */}
+      {showModal && (
+        <div className="floating-box">
+          <div className="floating-box-content">
+            <button onClick={handleCloseModal} className="close-btn">×</button>
+            <h4>¿Prestas algún servicio profesional?</h4>
+            <p>¡Alguien puede estar necesitando tu ayuda! Únete a nuestro canal de Telegram y recibe todas las solicitudes en tu teléfono.</p>
+            <a
+              href="https://t.me/+KcLGOEqZaElhZmQx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-telegram"
+            >
+              <i className="fab fa-telegram-plane"></i> Unirme a la Comunidad
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* Título y solicitud de servicio */}
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
 
       {cargando ? (
@@ -72,25 +92,6 @@ const Home = () => {
         <p>¡Solicítalo ahora y recibe ayuda rápida!</p>
         <Link to="/solicitar-servicio" className="btn btn-primary">Solicitar Servicio</Link>
       </div>
-
-      {/* Cuadro flotante */}
-      {showModal && (
-        <div className="floating-box">
-          <div className="floating-box-content">
-            <button onClick={handleCloseModal} className="close-btn">×</button>
-            <h4>¿Prestas algún servicio profesional?</h4>
-            <p>¡Alguien puede estar necesitando tu ayuda! Únete a nuestro canal de Telegram y recibe todas las solicitudes de manera automatizada.</p>
-            <a
-              href="https://t.me/+KcLGOEqZaElhZmQx"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-telegram"
-            >
-              <i className="fab fa-telegram-plane"></i> Unirme al Canal
-            </a>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -158,8 +158,9 @@ input:focus, textarea:focus, select:focus {
 /* Estilo del cuadro flotante */
 .floating-box {
   position: fixed;
-  bottom: 20px;  /* Posición desde la parte inferior */
-  left: 20px;    /* Posición desde la parte izquierda */
+  top: 10px;  /* Posición desde la parte superior */
+  left: 50%;
+  transform: translateX(-50%);  /* Centrado horizontal */
   background-color: #000;  /* Fondo negro */
   color: white;  /* Texto blanco */
   padding: 20px;
@@ -208,7 +209,7 @@ input:focus, textarea:focus, select:focus {
 @media (max-width: 768px) {
   .floating-box {
     max-width: 100%;
-    bottom: 10px;  /* Ajuste de la posición en pantallas pequeñas */
+    top: 15px;  /* Ajuste de la posición en pantallas pequeñas */
     left: 10px;
     padding: 15px;
   }

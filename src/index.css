@@ -211,5 +211,12 @@ input:focus, textarea:focus, select:focus {
   color: #f0f0f0;
 }
 
+.card .btn-link {
+  text-align: left; /* Alineación a la izquierda */
+  display: inline-block; /* Asegura que el enlace se quede en la misma línea y no se expanda */
+  margin-left: 0; /* Elimina cualquier margen a la izquierda */
+  padding-left: 0; /* Elimina el padding izquierdo si existe */
+}
+
 
 

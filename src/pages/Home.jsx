@@ -58,7 +58,7 @@ const Home = () => {
                   <small className="text-muted">País: {solicitud.pais}</small>
                 </p>
 
-                <Link to={`/solicitudes/${solicitud.urlSlug}`} className="btn btn-link">
+                <Link to={`/solicitudes/${solicitud.urlSlug}`} className="btn btn-link d-inline-block">
                   Ver detalles
                 </Link>
               </div>

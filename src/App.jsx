@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import FormularioSolicitud from "./pages/FormularioSolicitud";
 import Solicitudes from "./pages/Solicitudes";
 import SolicitudDetalles from "./pages/SolicitudDetalles";
+import './index.css';
+
 
 const App = () => {
   return (

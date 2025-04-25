@@ -62,7 +62,7 @@ const Header = () => {
                 href="https://t.me/+KcLGOEqZaElhZmQx"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-outline-dark text-dark"
+                className="bbtn btn-telegram"
                 style={{
                   backgroundColor: 'white',
                   color: 'black',

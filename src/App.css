@@ -59,3 +59,62 @@ a {
 a:hover {
   color: #808080 !important; /* Enlaces en gris al pasar el ratón */
 }
+
+/* Estilo del cuadro flotante */
+.floating-box {
+  position: fixed;
+  bottom: 20px;  /* Posición desde la parte inferior */
+  left: 20px;    /* Posición desde la parte izquierda */
+  background-color: #000;  /* Fondo negro */
+  color: white;  /* Texto blanco */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);  /* Sombra para darle profundidad */
+  z-index: 9999;  /* Asegura que el cuadro esté sobre otros elementos */
+  max-width: 300px;  /* Limita el ancho del cuadro */
+  width: 100%;
+  font-size: 14px; /* Tamaño de texto */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espacio entre los elementos */
+}
+
+/* Estilo del botón dentro del cuadro */
+.floating-box .btn {
+  background-color: #007bff; /* Fondo azul */
+  color: white;  /* Texto blanco */
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.floating-box .btn:hover {
+  background-color: #0056b3; /* Fondo azul oscuro en hover */
+}
+
+/* Estilo de la X de cierre */
+.floating-box .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.floating-box .close-btn:hover {
+  color: #ccc;  /* Color en hover */
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .floating-box {
+    max-width: 100%;
+    bottom: 10px;  /* Ajuste de la posición en pantallas pequeñas */
+    left: 10px;
+    padding: 15px;
+  }
+}

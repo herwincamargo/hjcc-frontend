@@ -47,16 +47,18 @@ const Header = () => {
         </div>
       </nav>
 
-      {/* Mensaje de Telegram debajo del header */}
-      <div className="telegram-message">
-        ¡Únete a nuestro canal de Telegram y recibe notificaciones de nuevas solicitudes!{" "}
-        <a
-          href="https://t.me/+KcLGOEqZaElhZmQx"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Haz clic aquí para unirte
-        </a>
+      {/* Mensaje de Telegram debajo del header pero dentro del mismo contenedor */}
+      <div className="telegram-message-container">
+        <p className="telegram-message">
+          ¡Únete a nuestro canal de Telegram y recibe notificaciones de nuevas solicitudes!{" "}
+          <a
+            href="https://t.me/+KcLGOEqZaElhZmQx"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Haz clic aquí para unirte
+          </a>
+        </p>
       </div>
     </>
   );

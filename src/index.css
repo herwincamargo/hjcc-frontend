@@ -143,16 +143,22 @@ input:focus, textarea:focus, select:focus {
   margin-right: 8px; /* Espacio entre el icono y el texto */
 }
 
-/* Estilo para el botón "Unirme a la Comunidad" */
+/* Estilo del botón "Unirme a Telegram" en el header */
 .navbar-nav .btn-info {
   padding: 6px 12px;
   font-size: 1rem;
   display: flex;
   align-items: center;
+  background-color: white; /* Fondo blanco */
+  color: black; /* Texto negro */
+  border-color: black; /* Borde negro */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave para fondo y color */
 }
 
-.navbar-nav .btn-info i {
-  margin-right: 5px;
+.navbar-nav .btn-info:hover {
+  background-color: #0088cc; /* Azul de Telegram */
+  color: white; /* Mantener el texto blanco */
+  border-color: #0077b5; /* Azul más oscuro para el borde */
 }
 
 /* Estilos para el recuadro flotante */

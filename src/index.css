@@ -185,10 +185,10 @@ input:focus, textarea:focus, select:focus {
   cursor: pointer;
 }
 
-/* Estilo del botón de Telegram */
+/* Estilo del botón de Telegram en el recuadro flotante */
 .btn-telegram {
   background-color: #0088cc; /* Azul de Telegram */
-  color: white;
+  color: white; /* Texto blanco */
   border-radius: 5px;
   padding: 10px 20px;
   text-decoration: none;
@@ -196,11 +196,14 @@ input:focus, textarea:focus, select:focus {
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  transition: background-color 0.3s ease; /* Solo transición en el fondo */
 }
 
 .btn-telegram:hover {
-  background-color: #0077b5; /* Color más oscuro al hacer hover */
+  background-color: #0077b5; /* Azul más oscuro de Telegram */
+  color: white; /* Asegura que el texto siga siendo blanco */
 }
+
 
 .floating-box a {
   color: white;

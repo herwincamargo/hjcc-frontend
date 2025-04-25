@@ -155,7 +155,7 @@ input:focus, textarea:focus, select:focus {
   margin-right: 5px;
 }
 
-/* Estilo del cuadro flotante */
+/* Estilo para el cuadro flotante */
 .floating-box {
   position: fixed;
   top: 10px;  /* Posición desde la parte superior */
@@ -167,7 +167,7 @@ input:focus, textarea:focus, select:focus {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);  /* Sombra para darle profundidad */
   z-index: 9999;  /* Asegura que el cuadro esté sobre otros elementos */
-  max-width: 300px;  /* Limita el ancho del cuadro */
+  max-width: 350px;  /* Limita el ancho del cuadro */
   width: 100%;
   font-size: 14px; /* Tamaño de texto */
   display: flex;

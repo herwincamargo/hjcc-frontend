@@ -60,11 +60,16 @@ const FormularioSolicitud = () => {
           categoria
         }),
       });
+
       const data = await response.json();
-      if (data && data.urlSlug) {  // Esperamos urlSlug en lugar de url
+      console.log("Respuesta del servidor:", data); // Esto es para ver qué recibimos
+
+      // Comprobar si la respuesta contiene un campo 'urlSlug'
+      if (data && data.urlSlug) {
         // Redirigir a la URL de la solicitud recién creada
         navigate(`/solicitudes/${data.urlSlug}`);
       } else {
+        // Si no se recibe la URL de la solicitud, mostrar el error correspondiente
         setError("No se pudo obtener el enlace de la solicitud.");
       }
     } catch (error) {

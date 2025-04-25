@@ -12,6 +12,7 @@
   "dependencies": {
     "autoprefixer": "^10.4.21",
     "bootstrap": "^5.3.5",
+    "font-awesome": "^4.7.0",
     "hjcc": "file:..",
     "postcss": "^8.5.3",
     "react": "^18.2.0",

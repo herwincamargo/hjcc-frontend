@@ -61,7 +61,8 @@ const FormularioSolicitud = () => {
         }),
       });
       const data = await response.json();
-      if (data && data.urlSlug) {
+      if (data && data.urlSlug) {  // Esperamos urlSlug en lugar de url
+        // Redirigir a la URL de la solicitud recién creada
         navigate(`/solicitudes/${data.urlSlug}`);
       } else {
         setError("No se pudo obtener el enlace de la solicitud.");

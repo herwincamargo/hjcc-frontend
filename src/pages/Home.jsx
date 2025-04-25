@@ -79,7 +79,7 @@ const Home = () => {
           <div className="floating-box-content">
             <button onClick={handleCloseModal} className="close-btn">×</button>
             <h4>¿Prestas algún servicio profesional?</h4>
-            <p>¡Alguien puede estar necesitando tu ayuda! Únete a nuestro canal de Telegram y recibe todas las solicitudes de manera automatizada.</p>
+            <p>¡Alguien puede estar necesitando tu ayuda! Únete a nuestro canal de Telegram y recibe todas las solicitudes en tu teléfono.</p>
             <a
               href="https://t.me/+KcLGOEqZaElhZmQx"
               target="_blank"

@@ -8,6 +8,14 @@ const Home = () => {
   const [cargando, setCargando] = useState(true); // Para controlar el estado de carga
   const [error, setError] = useState(null); // Para manejar posibles errores
 
+  // Estado para el recuadro flotante
+  const [isFloatingBoxVisible, setIsFloatingBoxVisible] = useState(true);
+
+  // Función para cerrar el recuadro flotante
+  const handleCloseBox = () => {
+    setIsFloatingBoxVisible(false);
+  };
+
   useEffect(() => {
     // Fetch de las solicitudes recientes desde la API
     fetch("https://hjcc-backend.onrender.com/api/solicitudes")
@@ -74,6 +82,24 @@ const Home = () => {
         <p>¡Solicítalo ahora y recibe ayuda rápida!</p>
         <Link to="/solicitar-servicio" className="btn btn-primary">Solicitar Servicio</Link>
       </div>
+
+      {/* Recuadro flotante en la parte inferior izquierda */}
+      {isFloatingBoxVisible && (
+        <div className="floating-box">
+          <button className="close-btn" onClick={handleCloseBox}>X</button>
+          <p>
+            ¿Eres un profesional? ¡Alguien puede estar necesitando tu ayuda! Únete a nuestro canal de Telegram y recibe solicitudes de servicio directamente en tu teléfono.
+          </p>
+          <a
+            href="https://t.me/+KcLGOEqZaElhZmQx"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+          >
+            Unirme al Canal
+          </a>
+        </div>
+      )}
     </div>
   );
 };

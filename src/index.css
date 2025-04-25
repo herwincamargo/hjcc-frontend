@@ -155,3 +155,60 @@ input:focus, textarea:focus, select:focus {
   margin-right: 5px;
 }
 
+/* Recuadro flotante en la parte inferior izquierda */
+.floating-box {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: black;
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: auto;
+  max-width: 300px; /* Ancho máximo */
+  text-align: center;
+}
+
+/* Estilo para el botón de cerrar (X) */
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: none;
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: red;
+}
+
+/* Estilos del botón */
+.floating-box .btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.floating-box .btn:hover {
+  background-color: #0056b3;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .floating-box {
+    max-width: 100%;  /* Ancho completo en pantallas pequeñas */
+    left: 10px;
+    right: 10px;
+  }
+}
+
+

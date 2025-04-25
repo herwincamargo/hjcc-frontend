@@ -48,9 +48,9 @@ const Header = () => {
                 href="https://t.me/+KcLGOEqZaElhZmQx"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-outline-light text-white"
+                className="btn btn-telegram"
               >
-                <i className="fab fa-telegram-plane"></i> Unirme al Canal
+                <i className="fab fa-telegram-plane"></i> Unirme a Telegram
               </a>
             </div>
           </div>

@@ -3,21 +3,12 @@ import { Link } from "react-router-dom"; // Importar Link de React Router para r
 import SolicitudesCard from "./SolicitudesCard";  // Asegúrate de tener el componente SolicitudesCard
 
 const Home = () => {
-  // Estado para las solicitudes, carga y error
   const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);
-  const [cargando, setCargando] = useState(true); // Para controlar el estado de carga
-  const [error, setError] = useState(null); // Para manejar posibles errores
-
-  // Estado para el recuadro flotante
-  const [isFloatingBoxVisible, setIsFloatingBoxVisible] = useState(true);
-
-  // Función para cerrar el recuadro flotante
-  const handleCloseBox = () => {
-    setIsFloatingBoxVisible(false);
-  };
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(true); // Estado para mostrar el modal flotante
 
   useEffect(() => {
-    // Fetch de las solicitudes recientes desde la API
     fetch("https://hjcc-backend.onrender.com/api/solicitudes")
       .then((response) => {
         if (!response.ok) {
@@ -26,31 +17,32 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
-        // Ordenar solicitudes por fecha (más recientes primero)
         data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-        setSolicitudesRecientes(data); // Asignar los datos de las solicitudes
-        setCargando(false); // Termina la carga
+        setSolicitudesRecientes(data);
+        setCargando(false);
       })
       .catch((error) => {
-        setError(error.message); // Manejar el error
-        setCargando(false); // Termina la carga
+        setError(error.message);
+        setCargando(false);
       });
-  }, []); // Solo se ejecuta una vez cuando se monta el componente
+  }, []);
+
+  const handleCloseModal = () => {
+    setShowModal(false); // Función para cerrar el modal
+  };
 
   return (
     <div className="container py-5">
       <h1 className="display-4 text-center mb-4">Solicitudes Recientes</h1>
 
-      {/* Mostrar un mensaje de carga si las solicitudes están siendo obtenidas */}
       {cargando ? (
         <p className="text-center">Cargando solicitudes...</p>
       ) : error ? (
-        <p className="text-center text-danger">Error: {error}</p> // Mostrar error si falla la carga
+        <p className="text-center text-danger">Error: {error}</p>
       ) : solicitudesRecientes.length === 0 ? (
         <p className="text-center">No hay solicitudes recientes disponibles.</p>
       ) : (
         <div className="list-group">
-          {/* Mapear las solicitudes y pasarlas al componente SolicitudesCard */}
           {solicitudesRecientes.map((solicitud) => (
             <div key={solicitud.id} className="card mb-3">
               <div className="card-body">
@@ -66,7 +58,6 @@ const Home = () => {
                   <small className="text-muted">País: {solicitud.pais}</small>
                 </p>
 
-                {/* Enlace para ver los detalles de la solicitud */}
                 <Link to={`/solicitudes/${solicitud.urlSlug}`} className="btn btn-link">
                   Ver detalles
                 </Link>
@@ -76,28 +67,28 @@ const Home = () => {
         </div>
       )}
 
-      {/* Texto conciso y enlace al formulario */}
       <div className="cta-container text-center mt-5 py-4" style={{ backgroundColor: "#f8f9fa" }}>
         <h3>¿Necesitas servicio especializado?</h3>
         <p>¡Solicítalo ahora y recibe ayuda rápida!</p>
         <Link to="/solicitar-servicio" className="btn btn-primary">Solicitar Servicio</Link>
       </div>
 
-      {/* Recuadro flotante en la parte inferior izquierda */}
-      {isFloatingBoxVisible && (
+      {/* Cuadro flotante */}
+      {showModal && (
         <div className="floating-box">
-          <button className="close-btn" onClick={handleCloseBox}>X</button>
-          <p>
-            ¿Eres un profesional? ¡Alguien puede estar necesitando tu ayuda! Únete a nuestro canal de Telegram y recibe solicitudes de servicio directamente en tu teléfono.
-          </p>
-          <a
-            href="https://t.me/+KcLGOEqZaElhZmQx"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-          >
-            Unirme al Canal
-          </a>
+          <div className="floating-box-content">
+            <button onClick={handleCloseModal} className="close-btn">×</button>
+            <h4>¿Prestas algún servicio profesional?</h4>
+            <p>¡Alguien puede estar necesitando tu ayuda! Únete a nuestro canal de Telegram y recibe todas las solicitudes de manera automatizada.</p>
+            <a
+              href="https://t.me/+KcLGOEqZaElhZmQx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-telegram"
+            >
+              <i className="fab fa-telegram-plane"></i> Unirme al Canal
+            </a>
+          </div>
         </div>
       )}
     </div>

@@ -155,59 +155,78 @@ input:focus, textarea:focus, select:focus {
   margin-right: 5px;
 }
 
-/* Recuadro flotante en la parte inferior izquierda */
+/* Estilos para el cuadro flotante */
 .floating-box {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: black;
-  color: white;
+  bottom: 20px; /* Lo coloca en la parte inferior */
+  left: 20px; /* Lo coloca en la parte izquierda */
+  background-color: #000; /* Fondo negro */
+  color: #fff; /* Texto blanco */
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  width: auto;
-  max-width: 300px; /* Ancho máximo */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra suave */
+  z-index: 9999; /* Asegura que el cuadro quede por encima de otros elementos */
+  width: 300px; /* Ancho fijo */
+  display: flex;
+  flex-direction: column;
+}
+
+.floating-box-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.floating-box h4 {
+  margin-bottom: 10px;
+}
+
+.floating-box p {
+  margin-bottom: 15px;
   text-align: center;
 }
 
-/* Estilo para el botón de cerrar (X) */
-.close-btn {
+.floating-box .btn-telegram {
+  background-color: #0088cc;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.floating-box .btn-telegram i {
+  margin-right: 10px; /* Espaciado entre el icono y el texto */
+}
+
+.floating-box .btn-telegram:hover {
+  background-color: #006fa6;
+}
+
+.floating-box .close-btn {
   position: absolute;
   top: 5px;
   right: 10px;
   background: none;
-  color: white;
   border: none;
-  font-size: 20px;
+  color: white;
+  font-size: 24px;
   cursor: pointer;
 }
 
-.close-btn:hover {
-  color: red;
+.floating-box .close-btn:hover {
+  color: #ccc;
 }
 
-/* Estilos del botón */
-.floating-box .btn {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-.floating-box .btn:hover {
-  background-color: #0056b3;
-}
-
-/* Responsividad */
+/* Hacer que el cuadro sea responsive */
 @media (max-width: 768px) {
   .floating-box {
-    max-width: 100%;  /* Ancho completo en pantallas pequeñas */
-    left: 10px;
-    right: 10px;
+    width: 80%; /* Más ancho en pantallas pequeñas */
+    left: 10px; /* Ajuste de posición */
   }
 }
 

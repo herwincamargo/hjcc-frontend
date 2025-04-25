@@ -48,9 +48,17 @@ const Header = () => {
                 href="https://t.me/+KcLGOEqZaElhZmQx"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-info text-white"
+                className="btn btn-outline-dark text-dark"
+                style={{
+                  backgroundColor: 'white',
+                  color: 'black',
+                  borderColor: 'black',
+                  transition: 'background-color 0.3s ease',
+                }}
+                onMouseOver={(e) => e.target.style.backgroundColor = '#f0f0f0'}
+                onMouseOut={(e) => e.target.style.backgroundColor = 'white'}
               >
-                <i className="fas fa-users"></i> Unirme a la Comunidad
+                <i className="fab fa-telegram-plane"></i> Unirme a Telegram
               </a>
             </div>
           </div>

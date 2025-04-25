@@ -155,64 +155,61 @@ input:focus, textarea:focus, select:focus {
   margin-right: 5px;
 }
 
-/* Estilo para el cuadro flotante */
+/* Estilos para el recuadro flotante */
 .floating-box {
-  position: fixed;
-  top: 10px;  /* Posición desde la parte superior */
-  left: 50%;
-  transform: translateX(-50%);  /* Centrado horizontal */
-  background-color: #000;  /* Fondo negro */
-  color: white;  /* Texto blanco */
+  position: fixed; /* Lo hace flotante */
+  bottom: 20px; /* Distancia desde la parte inferior */
+  left: 20px; /* Distancia desde la parte izquierda */
+  background-color: #000000; /* Fondo negro */
+  color: white; /* Texto blanco */
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);  /* Sombra para darle profundidad */
-  z-index: 9999;  /* Asegura que el cuadro esté sobre otros elementos */
-  max-width: 350px;  /* Limita el ancho del cuadro */
-  width: 100%;
-  font-size: 14px; /* Tamaño de texto */
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Espacio entre los elementos */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  z-index: 9999; /* Asegura que el cuadro quede encima de otros elementos */
+  max-width: 100%;
+  width: 300px; /* Ancho fijo para el cuadro */
 }
 
-/* Estilo del botón dentro del cuadro */
-.floating-box .btn {
-  background-color: #007bff; /* Fondo azul */
-  color: white;  /* Texto blanco */
-  border-radius: 5px;
-  text-align: center;
-  padding: 10px;
-  text-decoration: none;
+.floating-box-content {
+  text-align: left;
 }
 
-.floating-box .btn:hover {
-  background-color: #0056b3; /* Fondo azul oscuro en hover */
-}
-
-/* Estilo de la X de cierre */
 .floating-box .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
-  color: white;
+  background: transparent;
   border: none;
-  font-size: 20px;
+  color: white;
+  font-size: 24px;
+  position: absolute;
+  top: 5px;
+  right: 10px;
   cursor: pointer;
 }
 
-.floating-box .close-btn:hover {
-  color: #ccc;  /* Color en hover */
+/* Estilo del botón de Telegram */
+.btn-telegram {
+  background-color: #0088cc; /* Azul de Telegram */
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
 }
 
-/* Responsive para pantallas pequeñas */
-@media (max-width: 768px) {
-  .floating-box {
-    max-width: 100%;
-    top: 15px;  /* Ajuste de la posición en pantallas pequeñas */
-    left: 10px;
-    padding: 15px;
-  }
+.btn-telegram:hover {
+  background-color: #0077b5; /* Color más oscuro al hacer hover */
 }
+
+.floating-box a {
+  color: white;
+  text-decoration: none;
+}
+
+.floating-box a:hover {
+  color: #f0f0f0;
+}
+
 
 

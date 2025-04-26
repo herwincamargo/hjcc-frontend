@@ -36,7 +36,7 @@ const Header = () => {
                   className="nav-link active"
                   aria-current="page"
                   to="/"
-                  onClick={closeMenu} // Llamar a la función de cierre cuando se hace clic
+                  onClick={closeMenu}
                 >
                   <i className="fas fa-home"></i> Home
                 </Link>
@@ -69,15 +69,15 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link
+                <a
                   className="nav-link"
-                  to={{ pathname: "https://t.me/+KcLGOEqZaElhZmQx" }}
+                  href="https://t.me/+KcLGOEqZaElhZmQx"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={closeMenu}
                 >
                   <i className="fab fa-telegram-plane"></i> Unirme a Telegram
-                </Link>
+                </a>
               </li>
             </ul>
           </div>

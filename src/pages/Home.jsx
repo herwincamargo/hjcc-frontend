@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import SolicitudesCard from "./SolicitudesCard";  // Asegúrate de tener el componente SolicitudesCard
-import Paginacion from "./Paginacion"; // Está bien porque está en el mismo folder
+import Paginacion from './Paginacion'; // Importamos la paginación
+import SolicitudesCard from "./SolicitudesCard";
 
 const Home = () => {
   const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(true);
-  const [page, setPage] = useState(1); // Estado para la página actual
-  const [totalPages, setTotalPages] = useState(1); // Total de páginas
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Establecer cuántos elementos mostrar por página
-  const itemsPerPage = 7;
+  const solicitudesPorPagina = 7; // Mostrar 7 solicitudes por página
 
   useEffect(() => {
-    fetch(`https://hjcc-backend.onrender.com/api/solicitudes?page=${page}&limit=${itemsPerPage}`)
+    fetch("https://hjcc-backend.onrender.com/api/solicitudes")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al cargar las solicitudes");
@@ -23,18 +21,29 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
-        setSolicitudesRecientes(data.solicitudes);
-        setTotalPages(data.totalPages); // Asumimos que la API te da el total de páginas
+        data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+        setSolicitudesRecientes(data);
         setCargando(false);
       })
       .catch((error) => {
         setError(error.message);
         setCargando(false);
       });
-  }, [page]);  // Cuando la página cambie, se volverá a ejecutar el useEffect
+  }, []);
 
   const handleCloseModal = () => {
-    setShowModal(false); // Función para cerrar el modal
+    setShowModal(false);
+  };
+
+  // Lógica de paginación
+  const indexUltimaSolicitud = currentPage * solicitudesPorPagina;
+  const indexPrimeraSolicitud = indexUltimaSolicitud - solicitudesPorPagina;
+  const solicitudesActuales = solicitudesRecientes.slice(indexPrimeraSolicitud, indexUltimaSolicitud);
+  const totalPages = Math.ceil(solicitudesRecientes.length / solicitudesPorPagina);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Subir suavemente al top
   };
 
   return (
@@ -48,38 +57,27 @@ const Home = () => {
       ) : solicitudesRecientes.length === 0 ? (
         <p className="text-center">No hay solicitudes recientes disponibles.</p>
       ) : (
-        <div className="list-group">
-          {solicitudesRecientes.map((solicitud) => (
-            <div key={solicitud.id} className="card mb-3">
-              <div className="card-body">
-                <h5 className="card-title">{solicitud.titulo}</h5>
-                <p className="card-text">{solicitud.descripcion}</p>
-                <p className="card-text">
-                  <small className="text-muted">Urgencia: {solicitud.urgencia}</small>
-                </p>
-                <p className="card-text">
-                  <small className="text-muted">Ciudad: {solicitud.ciudad}</small>
-                </p>
-                <p className="card-text">
-                  <small className="text-muted">País: {solicitud.pais}</small>
-                </p>
+        <>
+          <div className="list-group">
+            {solicitudesActuales.map((solicitud) => (
+              <SolicitudesCard key={solicitud.id} solicitud={solicitud} />
+            ))}
+          </div>
 
-                <Link to={`/solicitudes/${solicitud.urlSlug}`} className="btn btn-link d-inline-block">
-                  Ver detalles
-                </Link>
-              </div>
+          {/* Paginación */}
+          {totalPages > 1 && (
+            <div className="d-flex justify-content-center mt-4">
+              <Paginacion
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
             </div>
-          ))}
-        </div>
+          )}
+        </>
       )}
 
-      {/* Paginación */}
-      <Paginacion 
-        currentPage={page} 
-        totalPages={totalPages} 
-        onPageChange={setPage} // Cambiar de página
-      />
-
+      {/* CTA de solicitar servicio */}
       <div className="cta-container text-center mt-5 py-4" style={{ backgroundColor: "#f8f9fa" }}>
         <h3>¿Necesitas servicio especializado?</h3>
         <p>¡Solicítalo ahora y recibe ayuda rápida!</p>

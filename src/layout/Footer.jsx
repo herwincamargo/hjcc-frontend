@@ -4,19 +4,18 @@ import { Link } from "react-router-dom"; // Importa Link para navegación intern
 const Footer = () => {
   return (
     <footer className="bg-dark text-white text-center py-3">
-      <p>
+      <p className="mb-0">
         &copy; 2025 HJCC Smart Services. Todos los derechos reservados.{" "}
         <a
           href="https://www.hjcc.com.co"
-          className="text-white"
+          className="text-white text-decoration-none"
           target="_blank"
           rel="noopener noreferrer"
         >
           www.hjcc.com.co
-        </a>
-      </p>
-      <p>
-        <Link to="/disclaimer" className="text-white">
+        </a>{" "}
+        |{" "}
+        <Link to="/disclaimer" className="text-white text-decoration-none">
           Aviso Legal
         </Link>
       </p>

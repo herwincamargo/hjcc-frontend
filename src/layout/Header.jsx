@@ -38,7 +38,7 @@ const Header = () => {
                   to="/"
                   onClick={closeMenu}
                 >
-                  <i className="fas fa-home"></i> Home
+                  <i className="fas fa-home"></i> Inicio
                 </Link>
               </li>
               <li className="nav-item">

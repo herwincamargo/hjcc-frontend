@@ -10,9 +10,10 @@ const FormularioSolicitud = () => {
   const [nombre, setNombre] = useState("");  
   const [email, setEmail] = useState("");    
   const [telefono, setTelefono] = useState(""); 
-  const [categoria, setCategoria] = useState("");  // Estado para la categoría
-  const [categoriasSugeridas, setCategoriasSugeridas] = useState([]);  // Sugerencias de categorías
+  const [categoria, setCategoria] = useState("");  
+  const [categoriasSugeridas, setCategoriasSugeridas] = useState([]);  
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false); // 🚀 Nuevo estado de loading
 
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ const FormularioSolicitud = () => {
   };
 
   useEffect(() => {
-    if (categoria.length > 2) {  // Solo buscar cuando el texto es más largo que 2 caracteres
+    if (categoria.length > 2) {  
       fetchCategorias(categoria);
     } else {
       setCategoriasSugeridas([]);
@@ -41,6 +42,8 @@ const FormularioSolicitud = () => {
       setError("Todos los campos son obligatorios");
       return;
     }
+
+    setLoading(true); // 🚀 Activamos loading
 
     try {
       const response = await fetch("https://hjcc-backend.onrender.com/api/solicitudes", {
@@ -60,18 +63,25 @@ const FormularioSolicitud = () => {
           categoria
         }),
       });
+
       const data = await response.json();
 
-      // Verifica si la respuesta contiene un campo 'urlSlug'
-      if (data && data.urlSlug) {
-        // Si la solicitud se creó correctamente, redirigir a la URL de la solicitud recién creada
-        navigate(`/solicitudes/${data.urlSlug}`);
+      if (data && data.url) {
+        const urlParts = data.url.split('/solicitudes/');
+        if (urlParts.length > 1) {
+          const slug = urlParts[1];
+          navigate(`/solicitudes/${slug}`);
+        } else {
+          setError("No se pudo obtener el enlace de la solicitud.");
+        }
       } else {
         setError("No se pudo obtener el enlace de la solicitud.");
       }
     } catch (error) {
       setError("Error al crear la solicitud");
       console.error(error);
+    } finally {
+      setLoading(false); // 🚀 Siempre desactivar loading
     }
   };
 
@@ -150,7 +160,6 @@ const FormularioSolicitud = () => {
             value={ciudad}
             onChange={(e) => setCiudad(e.target.value)}
             required
-            placeholder=""
           />
         </div>
 
@@ -163,7 +172,6 @@ const FormularioSolicitud = () => {
             value={pais}
             onChange={(e) => setPais(e.target.value)}
             required
-            placeholder=""
           />
         </div>
 
@@ -176,7 +184,6 @@ const FormularioSolicitud = () => {
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
             required
-            placeholder=""
           />
         </div>
 
@@ -189,7 +196,6 @@ const FormularioSolicitud = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            placeholder=""
           />
         </div>
 
@@ -202,12 +208,17 @@ const FormularioSolicitud = () => {
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
             required
-            placeholder=""
           />
         </div>
 
-        <button type="submit" className="btn btn-primary mt-3">
-          Enviar Solicitud
+        <button type="submit" className="btn btn-primary mt-3" disabled={loading}>
+          {loading ? (
+            <>
+              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...
+            </>
+          ) : (
+            "Enviar Solicitud"
+          )}
         </button>
       </form>
     </div>

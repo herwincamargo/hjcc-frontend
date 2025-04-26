@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import SolicitudesCard from './SolicitudesCard';
+import Paginacion from './Paginacion'; // Nueva importación
 
 const Solicitudes = () => {
   const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Estado para los filtros
   const [filters, setFilters] = useState({
     categoria: '',
     urgencia: '',
@@ -14,25 +14,35 @@ const Solicitudes = () => {
     pais: '',
   });
 
-  // Estado para las sugerencias (opciones predictivas para los campos)
   const [suggestions, setSuggestions] = useState({
     categoria: [],
     ciudad: [],
     pais: [],
   });
 
-  // Función para manejar el cambio en los campos de filtro
+  const [paginaActual, setPaginaActual] = useState(1);
+  const solicitudesPorPagina = 7;
+
+  const fetchCategorias = async (query) => {
+    try {
+      const response = await fetch(`https://hjcc-backend.onrender.com/api/categorias?search=${query}`);
+      const data = await response.json();
+      setCategoriasSugeridas(data);
+    } catch (error) {
+      console.error('Error al obtener las categorías:', error);
+    }
+  };
+
   const handleFilterChange = async (e) => {
     const { name, value } = e.target;
-    setFilters({ ...filters, [name]: value });  // Actualiza el filtro correspondiente
+    setFilters({ ...filters, [name]: value });
 
-    // Lógica para autocompletar categorías, ciudades, y países
-    if (value.length > 2) {  // Solo buscar si el texto tiene más de 2 caracteres
+    if (value.length > 2) {
       const response = await fetch(`https://hjcc-backend.onrender.com/api/solicitudes?${name}=${value}`);
       const data = await response.json();
 
       if (name === 'categoria') {
-        const categorias = [...new Set(data.map(s => s.categoria))]; // Filtrar duplicados
+        const categorias = [...new Set(data.map(s => s.categoria))];
         setSuggestions({ ...suggestions, categoria: categorias });
       } else if (name === 'ciudad') {
         const ciudades = [...new Set(data.map(s => s.ciudad))];
@@ -46,9 +56,8 @@ const Solicitudes = () => {
     }
   };
 
-  // Fetch solicitudes con filtros
   useEffect(() => {
-    const query = new URLSearchParams(filters).toString();  // Convertir los filtros en parámetros de consulta
+    const query = new URLSearchParams(filters).toString();
     const fetchSolicitudes = async () => {
       try {
         const response = await fetch(`https://hjcc-backend.onrender.com/api/solicitudes?${query}`);
@@ -62,7 +71,12 @@ const Solicitudes = () => {
     };
 
     fetchSolicitudes();
-  }, [filters]);  // Este useEffect se ejecuta cada vez que los filtros cambian
+  }, [filters]);
+
+  // Nuevo: hacer scroll hacia arriba cada vez que cambia de página
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [paginaActual]);
 
   return (
     <div className="container py-5">
@@ -137,16 +151,30 @@ const Solicitudes = () => {
       {loading && <p className="text-center">Cargando solicitudes...</p>}
       {error && <p className="text-center text-danger">Error al cargar solicitudes: {error}</p>}
 
-      {/* Mostrar las solicitudes o mensaje si no hay solicitudes */}
+      {/* Mostrar las solicitudes */}
       <div className="list-group">
         {solicitudesRecientes.length === 0 ? (
           <p className="text-center">No hay solicitudes recientes disponibles.</p>
         ) : (
-          solicitudesRecientes.map((solicitud) => (
-            <SolicitudesCard key={solicitud.id} solicitud={solicitud} />
-          ))
+          solicitudesRecientes
+            .slice(
+              (paginaActual - 1) * solicitudesPorPagina,
+              paginaActual * solicitudesPorPagina
+            )
+            .map((solicitud) => (
+              <SolicitudesCard key={solicitud.id} solicitud={solicitud} />
+            ))
         )}
       </div>
+
+      {/* Mostrar la paginación si hay más de 7 solicitudes */}
+      {solicitudesRecientes.length > solicitudesPorPagina && (
+        <Paginacion
+          currentPage={paginaActual}
+          totalPages={Math.ceil(solicitudesRecientes.length / solicitudesPorPagina)}
+          onPageChange={setPaginaActual}
+        />
+      )}
     </div>
   );
 };

@@ -14,7 +14,7 @@ const Footer = () => {
         >
           www.hjcc.com.co
         </a>{" "}
-        |{" "}
+        -{" "}
         <Link to="/disclaimer" className="text-white text-decoration-none">
           Aviso Legal
         </Link>

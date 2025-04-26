@@ -59,14 +59,14 @@ const Header = () => {
                   <i className="fas fa-list"></i> Solicitudes
                 </Link>
               </li>
-              {/* Aquí el nuevo elemento correctamente */}
+              {/* 🔥 Aquí cambiamos el enlace */}
               <li className="nav-item">
                 <Link
                   className="nav-link"
                   to="/como-funciona"
                   onClick={closeMenu}
                 >
-                  <i className="fas fa-question-circle"></i> ¿Cómo funciona?
+                  <i className="fas fa-question-circle"></i> ¿Cómo Funciona?
                 </Link>
               </li>
               <li className="nav-item">

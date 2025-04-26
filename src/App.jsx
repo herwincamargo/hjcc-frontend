@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import FormularioSolicitud from "./pages/FormularioSolicitud";
 import Solicitudes from "./pages/Solicitudes";
 import SolicitudDetalles from "./pages/SolicitudDetalles";
+import ComoFunciona from './pages/ComoFunciona';
 import './index.css';
 
 
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/solicitar-servicio" element={<FormularioSolicitud />} />
           <Route path="/solicitudes" element={<Solicitudes />} />
           <Route path="/solicitudes/:slug" element={<SolicitudDetalles />} />
+          <Route path="/como-funciona" element={<ComoFunciona />} />
         </Routes>
       </main>
       <Footer />

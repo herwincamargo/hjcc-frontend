@@ -15,7 +15,7 @@ const Header = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/" onClick={closeMenu}>
             HJCC - Smart Services
           </Link>
           <button
@@ -59,13 +59,14 @@ const Header = () => {
                   <i className="fas fa-list"></i> Solicitudes
                 </Link>
               </li>
+              {/* Aquí el nuevo elemento correctamente */}
               <li className="nav-item">
                 <Link
                   className="nav-link"
-                  to="/registro-profesional"
+                  to="/como-funciona"
                   onClick={closeMenu}
                 >
-                  <i className="fas fa-briefcase"></i> Trabaja con Nosotros
+                  <i className="fas fa-question-circle"></i> ¿Cómo funciona?
                 </Link>
               </li>
               <li className="nav-item">

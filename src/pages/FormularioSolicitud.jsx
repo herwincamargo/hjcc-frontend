@@ -59,13 +59,13 @@ const FormularioSolicitud = () => {
           telefono,
           categoria
         }),
-      });      
+      });
+      const data = await response.json();
 
       // Verifica si la respuesta contiene un campo 'urlSlug'
-      const data = await response.json();
-      if (data && data.url) {  // Cambiar de urlSlug a url
-        // Redirecciona usando la URL completa que viene del backend
-        window.location.href = data.url;
+      if (data && data.urlSlug) {
+        // Si la solicitud se creó correctamente, redirigir a la URL de la solicitud recién creada
+        navigate(`/solicitudes/${data.urlSlug}`);
       } else {
         setError("No se pudo obtener el enlace de la solicitud.");
       }

@@ -7,6 +7,7 @@ const Home = () => {
   const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(true);
   const [page, setPage] = useState(1); // Estado para la página actual
   const [totalPages, setTotalPages] = useState(1); // Total de páginas
 

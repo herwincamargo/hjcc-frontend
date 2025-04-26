@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Importar Link de React Router para redirigir
+import { Link } from "react-router-dom";
 import SolicitudesCard from "./SolicitudesCard";  // Asegúrate de tener el componente SolicitudesCard
-import Paginacion from './Paginacion';
+import Paginacion from "./Paginacion"; // Está bien porque está en el mismo folder
 
 const Home = () => {
   const [solicitudesRecientes, setSolicitudesRecientes] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
-  const [showModal, setShowModal] = useState(true); // Estado para mostrar el modal flotante
+  const [page, setPage] = useState(1); // Estado para la página actual
+  const [totalPages, setTotalPages] = useState(1); // Total de páginas
+
+  // Establecer cuántos elementos mostrar por página
+  const itemsPerPage = 7;
 
   useEffect(() => {
-    fetch("https://hjcc-backend.onrender.com/api/solicitudes")
+    fetch(`https://hjcc-backend.onrender.com/api/solicitudes?page=${page}&limit=${itemsPerPage}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al cargar las solicitudes");
@@ -18,15 +22,15 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
-        data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-        setSolicitudesRecientes(data);
+        setSolicitudesRecientes(data.solicitudes);
+        setTotalPages(data.totalPages); // Asumimos que la API te da el total de páginas
         setCargando(false);
       })
       .catch((error) => {
         setError(error.message);
         setCargando(false);
       });
-  }, []);
+  }, [page]);  // Cuando la página cambie, se volverá a ejecutar el useEffect
 
   const handleCloseModal = () => {
     setShowModal(false); // Función para cerrar el modal
@@ -67,6 +71,13 @@ const Home = () => {
           ))}
         </div>
       )}
+
+      {/* Paginación */}
+      <Paginacion 
+        currentPage={page} 
+        totalPages={totalPages} 
+        onPageChange={setPage} // Cambiar de página
+      />
 
       <div className="cta-container text-center mt-5 py-4" style={{ backgroundColor: "#f8f9fa" }}>
         <h3>¿Necesitas servicio especializado?</h3>

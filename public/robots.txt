@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /dist/
+Disallow: /build/
+
+Sitemap: https://www.hjcc.com.co/sitemap.xml
